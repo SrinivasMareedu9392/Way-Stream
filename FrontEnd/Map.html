@@ -7,24 +7,22 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Leaflet CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #0848f8;
-            --primary-dark: #0639c7;
-            --secondary: #ff6b6b;
+            --primary: #1a3c87; /* Deep, professional blue */
+            --primary-dark: #152e6e; /* Darker shade for hover */
+            --secondary: #f4a261; /* Warm accent for CTAs */
+            --accent: #2a9d8f; /* Teal for secondary highlights */
             --light: #ffffff;
-            --dark: #222222;
-            --gray: #f5f5f5;
-            --dark-gray: #888888;
+            --dark: #1a1a1a;
+            --gray: #f8f9fa;
+            --dark-gray: #6b7280;
             --transition: all 0.3s ease;
-            --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            --shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.2);
-             /* Define navbar height variable - INCREASED */
-            --navbar-height: 90px;
-            --navbar-height-mobile: 70px; /* Can adjust mobile height too if desired */
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --shadow-hover: 0 6px 20px rgba(0, 0, 0, 0.15);
+            --navbar-height: 80px;
+            --navbar-height-mobile: 70px;
         }
 
         * {
@@ -34,35 +32,37 @@
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Inter', sans-serif;
             color: var(--dark);
-            line-height: 1.6;
-            background-color: var(--gray);
-            overflow-x: hidden;
-            /* Use the variable for padding */
+            line-height: 1.7;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+                        url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
+            background-attachment: fixed;
             padding-top: var(--navbar-height);
         }
 
         h1, h2, h3, h4 {
             font-family: 'Playfair Display', serif;
             font-weight: 600;
+            color: var(--primary-dark);
         }
 
+        /* Navbar Styles */
         .navbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1.5rem 5%;
-            background-color: rgba(8, 72, 248, 0.9);
+            padding: 1.2rem 5%;
+            background: rgba(26, 60, 135, 0.95);
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
             box-shadow: var(--shadow);
+            backdrop-filter: blur(5px);
         }
 
         .logo {
-            /* Optionally increase logo size */
             font-size: 2rem;
             font-weight: 700;
             color: var(--light);
@@ -70,149 +70,542 @@
             display: flex;
             align-items: center;
         }
-         .logo i { margin-right: 0.6rem; color: var(--secondary); }
+
+        .logo i {
+            margin-right: 0.6rem;
+            color: var(--secondary);
+            font-size: 1.8rem;
+        }
 
         .nav-links {
             display: flex;
-            gap: 1.8rem; /* Slightly more gap */
+            gap: 2.5rem;
             align-items: center;
         }
 
         .nav-links a {
             color: var(--light);
             text-decoration: none;
-             /* Optionally increase font size */
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
             transition: var(--transition);
             position: relative;
             padding: 0.5rem 0;
         }
-        .nav-links a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background-color: var(--secondary); transition: var(--transition); }
-        .nav-links a:hover::after { width: 100%; }
-        .nav-links a:hover { color: var(--secondary); }
 
-        .hidden { display: none !important; }
-
-        .mobile-menu-btn { display: none; background: none; border: none; color: var(--light); font-size: 1.6rem; /* Slightly larger */ cursor: pointer; }
-        /* --- End Navbar Styles --- */
-
-        /* Hero Section */
-        .map-hero {
-            background: linear-gradient(rgba(8, 72, 248, 0.8), rgba(8, 72, 248, 0.8)),
-                        url('https://images.unsplash.com/photo-1464037866556-6812c9d1c72e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') no-repeat center center/cover;
-            height: 40vh;
-            color: var(--light);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 0 2rem;
-             /* No margin-top needed due to body padding */
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--secondary);
+            transition: var(--transition);
         }
-        .map-hero h1 { font-size: 3rem; margin-bottom: 1rem; text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); }
-        .map-hero p { font-size: 1.1rem; max-width: 700px; }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary);
+            transform: translateY(-2px);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--light);
+            font-size: 1.8rem;
+            cursor: pointer;
+        }
 
         /* Main Content */
-        .section { padding: 4rem 5%; }
-        .section-title { text-align: center; margin-bottom: 3rem; }
-        .section-title h2 { font-size: 2.5rem; color: var(--primary); margin-bottom: 0.5rem; }
-        .section-title p { color: var(--dark-gray); max-width: 700px; margin: 0 auto; }
+        .section {
+            padding: 5rem 5%;
+            background: rgba(255, 255, 255, 0.95);
+            margin: 3rem auto;
+            border-radius: 15px;
+            max-width: 1200px;
+            box-shadow: var(--shadow);
+        }
 
-        /* Map Container */
-        .map-container { position: relative; width: 100%; height: 80vh; border-radius: 10px; overflow: hidden; box-shadow: var(--shadow); background-color: var(--light); }
-        #explore-map { width: 100%; height: 100%; }
+        .section-title {
+            text-align: center;
+            margin-bottom: 3.5rem;
+        }
 
-        /* Login Prompt */
-         #map-login-prompt { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(245, 245, 245, 0.95); z-index: 900; display: none; /* Changed initial state */ flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 2rem; }
-         #map-login-prompt p { font-size: 1.3rem; color: var(--dark); margin-bottom: 1.5rem; }
-         #map-login-prompt a { display: inline-block; background-color: var(--primary); color: var(--light); padding: 0.8rem 1.5rem; border-radius: 5px; text-decoration: none; font-weight: 500; transition: var(--transition); }
-         #map-login-prompt a:hover { background-color: var(--primary-dark); box-shadow: var(--shadow); }
+        .section-title h2 {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 0.8rem;
+        }
 
-        /* Search Box */
-        .search-box { position: absolute; top: 20px; left: 20px; z-index: 1000; background: var(--light); padding: 1rem 1.5rem; border-radius: 8px; box-shadow: var(--shadow-hover); width: 350px; max-width: 90%; display: none; }
-        .search-box h3 { color: var(--primary-dark); margin-bottom: 1rem; font-size: 1.3rem; }
-        .search-controls { display: flex; flex-direction: column; gap: 10px; }
-        .search-controls input { padding: 10px 15px; border: 1px solid #ccc; border-radius: 5px; font-size: 1rem; transition: var(--transition); }
-        .search-controls input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(8, 72, 248, 0.2); }
+        .section-title p {
+            font-size: 1.1rem;
+            color: var(--dark-gray);
+            max-width: 800px;
+            margin: 0 auto;
+        }
 
-        /* Distance Label */
-        .distance-label { background: rgba(0, 0, 0, 0.8); color: white; padding: 4px 8px; border-radius: 4px; font-size: 0.85rem; font-weight: bold; text-align: center; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3); white-space: nowrap; border: 1px solid rgba(255, 255, 255, 0.5); }
+        /* Search Controls Outside Map */
+        .search-controls-outside {
+            background: var(--light);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .search-controls-outside h3 {
+            font-family: 'Inter', sans-serif;
+            color: var(--primary-dark);
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .search-controls-outside .inputs {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 1.5rem;
+        }
+
+        .search-controls-outside input {
+            padding: 12px 15px;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: var(--transition);
+            background: var(--light);
+        }
+
+        .search-controls-outside input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(26, 60, 135, 0.1);
+        }
+
+        .search-controls-outside .get-directions-btn {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--light);
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            width: fit-content;
+            margin: 0 auto;
+            display: block;
+        }
+
+        .search-controls-outside .get-directions-btn:hover {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .search-controls-outside .get-directions-btn.loading {
+            position: relative;
+            pointer-events: none;
+        }
+
+        .search-controls-outside .get-directions-btn.loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        /* Map Container and Nearby Places */
+        .map-and-places {
+            display: flex;
+            gap: 2rem;
+            align-items: flex-start;
+        }
+
+        .map-container {
+            position: relative;
+            width: 70%;
+            height: 80vh;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow-hover);
+            background-color: var(--light);
+        }
+
+        #explore-map {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Distance Display */
+        .distance-display {
+            margin-top: 1.5rem;
+            text-align: center;
+            background: var(--light);
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            max-width: 300px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .distance-display p {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .distance-display p span {
+            color: var(--dark);
+            font-weight: 500;
+        }
+
+        /* Nearby Places */
+        .nearby-places {
+            width: 30%;
+            background: var(--light);
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            height: 80vh;
+            overflow-y: auto;
+        }
+
+        .nearby-places h3 {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.4rem;
+            color: var(--primary-dark);
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .place {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .place:last-child {
+            border-bottom: none;
+        }
+
+        .place-info h4 {
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 0.3rem;
+        }
+
+        .place-info p {
+            font-size: 0.9rem;
+            color: var(--dark-gray);
+        }
+
+        .place-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .place-rating .stars {
+            color: #ffd700; /* Gold for stars */
+            font-size: 1rem;
+        }
+
+        .place-rating .rating-value {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        .no-places {
+            text-align: center;
+            padding: 2rem;
+            color: var(--dark-gray);
+        }
+
+        /* Current Location Button */
+        .current-location-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 1000;
+            background: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+            cursor: pointer;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
         /* Footer Styles */
-        footer { background-color: var(--dark); color: var(--light); padding: 4rem 5% 2rem; margin-top: 4rem;}
-        .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem; margin-bottom: 3rem; }
-        .footer-col h3 { font-size: 1.5rem; margin-bottom: 1.5rem; position: relative; padding-bottom: 0.5rem; }
-        .footer-col h3::after { content: ''; position: absolute; bottom: 0; left: 0; width: 50px; height: 2px; background-color: var(--secondary); }
-        .footer-col p { margin-bottom: 1rem; opacity: 0.8; }
-        .footer-links li { margin-bottom: 0.8rem; list-style: none; }
-        .footer-links a { color: white; text-decoration: none; opacity: 0.8; transition: var(--transition); }
-        .footer-links a:hover { opacity: 1; color: var(--secondary); padding-left: 5px; }
-        .social-links { display: flex; gap: 1rem; }
-        .social-links a { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; background-color: rgba(255, 255, 255, 0.1); color: var(--light); border-radius: 50%; transition: var(--transition); }
-        .social-links a:hover { background-color: var(--secondary); transform: translateY(-3px); }
-        .footer-bottom { text-align: center; padding-top: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.1); opacity: 0.8; }
-        .newsletter-form { display: flex; }
-        .newsletter-form input { flex-grow: 1; padding: 10px 15px; border: none; border-radius: 5px 0 0 5px; font-size: 1rem; }
-        .newsletter-form button { padding: 10px 15px; border: none; background-color: var(--primary); color: var(--light); border-radius: 0 5px 5px 0; cursor: pointer; transition: var(--transition); font-size: 1rem; font-weight: 500;}
-        .newsletter-form button:hover { background-color: var(--primary-dark); }
+        footer {
+            background: var(--primary-dark);
+            color: var(--light);
+            padding: 5rem 5% 3rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 4rem;
+            max-width: 1200px;
+            margin: 0 auto 3rem;
+        }
+
+        .footer-col h3 {
+            font-size: 1.6rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.6rem;
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--secondary);
+        }
+
+        .footer-col p {
+            margin-bottom: 1.2rem;
+            opacity: 0.85;
+            font-size: 0.95rem;
+        }
+
+        .footer-links li {
+            margin-bottom: 1rem;
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: var(--light);
+            text-decoration: none;
+            opacity: 0.85;
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+            color: var(--secondary);
+            padding-left: 8px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.2rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.15);
+            color: var(--light);
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--secondary);
+            transform: translateY(-4px);
+        }
+
+        .newsletter-form {
+            display: flex;
+        }
+
+        .newsletter-form input {
+            flex-grow: 1;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 8px 0 0 8px;
+            font-size: 1rem;
+            background: var(--light);
+        }
+
+        .newsletter-form button {
+            padding: 12px 20px;
+            border: none;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--light);
+            border-radius: 0 8px 8px 0;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .newsletter-form button:hover {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            transform: translateY(-2px);
+        }
 
         /* Responsive Design */
         @media (max-width: 992px) {
-            .map-hero h1 { font-size: 2.5rem; }
-        }
-        @media (max-width: 768px) {
-             /* Adjust body padding for mobile navbar height */
-             body {
-                  padding-top: var(--navbar-height-mobile);
-             }
-             /* Adjust navbar height and padding for mobile */
-             .navbar {
-                 padding: 1rem 5%; /* Adjusted padding */
-                 height: var(--navbar-height-mobile);
-             }
-             .logo { font-size: 1.6rem; }
+            .section-title h2 {
+                font-size: 2.5rem;
+            }
 
-             /* Mobile Menu Positioning based on mobile navbar height */
+            .section-title p {
+                font-size: 1rem;
+            }
+
+            .map-and-places {
+                flex-direction: column;
+            }
+
+            .map-container, .nearby-places {
+                width: 100%;
+            }
+
+            .nearby-places {
+                height: auto;
+                max-height: 50vh;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding-top: var(--navbar-height-mobile);
+            }
+
+            .navbar {
+                padding: 1rem 5%;
+                height: var(--navbar-height-mobile);
+            }
+
+            .logo {
+                font-size: 1.8rem;
+            }
+
             .nav-links {
                 position: fixed;
-                top: var(--navbar-height-mobile); /* Match mobile navbar height */
+                top: var(--navbar-height-mobile);
                 left: -100%;
                 width: 100%;
-                 /* Adjust height calculation */
                 height: calc(100vh - var(--navbar-height-mobile));
-                background-color: var(--primary-dark);
+                background: var(--primary-dark);
                 flex-direction: column;
                 align-items: center;
                 justify-content: flex-start;
-                padding-top: 3rem;
-                gap: 2rem;
+                padding-top: 4rem;
+                gap: 3rem;
                 transition: var(--transition);
                 z-index: 999;
             }
-            .nav-links.active { left: 0; }
-            .mobile-menu-btn { display: block; z-index: 1001; }
 
-            .map-hero { height: 35vh; }
-            .map-hero h1 { font-size: 2rem; }
+            .nav-links.active {
+                left: 0;
+            }
 
-             .section { padding: 3rem 5%; }
-             .map-container { height: 70vh; }
-             .search-box { width: 90%; left: 5%; top: 15px; padding: 0.8rem 1rem;}
-             .search-box h3 { font-size: 1.1rem; margin-bottom: 0.8rem;}
-              #map-login-prompt p { font-size: 1.1rem;}
-              #map-login-prompt a { padding: 0.7rem 1.2rem; }
-         }
+            .mobile-menu-btn {
+                display: block;
+                z-index: 1001;
+            }
+
+            .section {
+                padding: 3rem 5%;
+                margin: 1.5rem;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+
+            .section-title p {
+                font-size: 0.95rem;
+            }
+
+            .map-container {
+                height: 70vh;
+            }
+
+            .search-controls-outside {
+                padding: 1.5rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-col h3::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+
+            .newsletter-form {
+                max-width: 400px;
+                margin: 0 auto;
+            }
+        }
 
         /* Animations */
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .fade-in { animation: fadeIn 1s ease forwards; opacity: 0; transform: translateY(20px);}
-        .delay-1 { animation-delay: 0.2s; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 1s ease forwards;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .delay-1 {
+            animation-delay: 0.3s;
+        }
     </style>
 </head>
 <body>
-    <!-- Header / Navbar (Dynamic) -->
+    <!-- Header / Navbar -->
     <header class="navbar">
         <a href="index.html" class="logo">
             <i class="fas fa-route"></i> WayStream
@@ -225,45 +618,54 @@
             <a href="Review.html" class="protected-link">Reviews</a>
             <a href="Map.html">Map</a>
             <a href="Contact.html" class="protected-link">Contact</a>
-            <a href="Login.html" class="login-btn" id="loginLink">Login</a>
-            <a href="Register.html" class="login-btn" id="registerLink">Register</a>
+            <a href="Register.html" class="login-btn" id="registerLink">Login/Register</a>
             <a href="#" class="login-btn hidden" id="logoutLink">Logout</a>
         </nav>
     </header>
 
-    <!-- Optional Hero Section -->
-    <section class="map-hero fade-in">
-        <h1>Explore Your World</h1>
-        <p>Find routes, distances, and discover amazing places.</p>
-    </section>
-
     <!-- Main Content -->
     <main>
         <!-- Map Section -->
-        <section class="section">
-            <div class="section-title fade-in delay-1">
+        <section class="section fade-in delay-1">
+            <div class="section-title">
                 <h2>Interactive Travel Map</h2>
-                <p>Enter start and destination points to see the route and distance.</p>
+                <p>Enter start and destination points to visualize your route and distance.</p>
             </div>
 
-            <div class="map-container fade-in delay-1">
-                 <!-- Login Prompt Overlay -->
-                 <div id="map-login-prompt">
-                     <p>Please log in to access the interactive map features.</p>
-                     <a href="Login.html">Go to Login</a>
-                 </div>
-                <!-- Map Div -->
-                <div id="explore-map"></div>
-                <!-- Search Box -->
-                <div class="search-box" id="mapSearchBox">
-                    <h3>Plan Your Route</h3>
-                    <div class="search-controls">
-                        <label for="start-input" class="hidden">Start Location</label>
-                        <input type="text" id="start-input" placeholder="Enter start location..." aria-label="Start Location"/>
-                        <label for="destination-input" class="hidden">Destination Location</label>
-                        <input type="text" id="destination-input" placeholder="Enter destination..." aria-label="Destination Location"/>
+            <!-- Search Controls Outside Map -->
+            <div class="search-controls-outside">
+                <h3>Get Directions</h3>
+                <div class="inputs">
+                    <label for="start-input" class="hidden">Start Location</label>
+                    <input type="text" id="start-input" placeholder="Enter start location..." value="" aria-label="Start Location">
+                    <label for="destination-input" class="hidden">Destination Location</label>
+                    <input type="text" id="destination-input" placeholder="Enter destination..." value="" aria-label="Destination Location">
+                </div>
+                <button class="get-directions-btn" id="getDirectionsBtn">Get Directions</button>
+            </div>
+
+            <!-- Map and Nearby Places -->
+            <div class="map-and-places">
+                <!-- Map Container -->
+                <div class="map-container">
+                    <div id="explore-map"></div>
+                    <button class="current-location-btn" id="currentLocationBtn" title="Use my current location">
+                        <i class="fas fa-location-arrow"></i>
+                    </button>
+                </div>
+
+                <!-- Nearby Places -->
+                <div class="nearby-places" id="places-container">
+                    <h3>Nearby Places</h3>
+                    <div class="no-places">
+                        <p>Search for directions to see nearby places at your destination</p>
                     </div>
                 </div>
+            </div>
+
+            <!-- Distance Display -->
+            <div class="distance-display" id="distanceDisplay">
+                <p>Distance and Time <br> <span id="distanceValue">N/A</span></p>
             </div>
         </section>
     </main>
@@ -271,10 +673,10 @@
     <!-- Footer -->
     <footer>
         <div class="footer-content">
-             <div class="footer-col">
+            <div class="footer-col">
                 <h3>WayStream</h3>
-                <p>Your guide to seamless travel planning and exploration.</p>
-                 <div class="social-links">
+                <p>Transforming travel since 2015 with curated, sustainable journeys across the globe.</p>
+                <div class="social-links">
                     <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
                     <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
                     <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
@@ -284,130 +686,296 @@
             <div class="footer-col">
                 <h3>Quick Links</h3>
                 <ul class="footer-links">
-                     <li><a href="index.html">Home</a></li>
-                     <li><a href="Review.html" class="protected-link">Reviews</a></li>
-                     <li><a href="Map.html">Map</a></li>
-                     <li><a href="Contact.html" class="protected-link">Contact</a></li>
-                     <li><a href="Register.html" id="footerRegisterLink">Login/Register</a></li>
-                     <li><a href="#" class="hidden" id="footerLogoutLink">Logout</a></li>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="Review.html" class="protected-link">Reviews</a></li>
+                    <li><a href="Map.html">Map</a></li>
+                    <li><a href="Contact.html" class="protected-link">Contact</a></li>
+                    <li><a href="Login.html" id="footerLoginLink">Login</a></li>
+                    <li><a href="Register.html" id="footerRegisterLink">Register</a></li>
+                    <li><a href="#" class="hidden" id="footerLogoutLink">Logout</a></li>
                 </ul>
             </div>
             <div class="footer-col">
                 <h3>Newsletter</h3>
-                <p>Subscribe for travel tips and updates.</p>
+                <p>Subscribe for exclusive travel tips and offers.</p>
                 <form class="newsletter-form" id="newsletterForm">
-                     <label for="newsletter-email" class="hidden">Email</label>
+                    <label for="newsletter-email" class="hidden">Email</label>
                     <input type="email" id="newsletter-email" placeholder="Your Email" required>
                     <button type="submit">Subscribe</button>
                 </form>
             </div>
         </div>
         <div class="footer-bottom">
-             <p>© <span id="currentYear"></span> WayStream Travel. All Rights Reserved.</p>
+            <p>© <span id="currentYear"></span> WayStream Travel. All Rights Reserved.</p>
         </div>
     </footer>
 
-    <!-- Leaflet JS -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
-    <!-- Main Script (No changes needed from previous version) -->
+    <!-- Google Maps API -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCQ8njadJwk5j3mMOh1CwKiXbho7zmsJ5A&libraries=places"></script>
+    
+    <!-- Main Script -->
     <script>
-        // --- UI Elements ---
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const navLinksContainer = document.getElementById('navLinks');
-        const loginLink = document.getElementById('loginLink');
-        const registerLink = document.getElementById('registerLink');
-        const logoutLink = document.getElementById('logoutLink');
-        const footerLoginLink = document.getElementById('footerLoginLink');
-        const footerRegisterLink = document.getElementById('footerRegisterLink');
-        const footerLogoutLink = document.getElementById('footerLogoutLink');
-        const mapContainer = document.getElementById('explore-map');
-        const mapLoginPrompt = document.getElementById('map-login-prompt');
-        const mapSearchBox = document.getElementById('mapSearchBox');
-        const startInput = document.getElementById('start-input');
-        const destinationInput = document.getElementById('destination-input');
-
-        // --- Core Login Functions ---
-        function isLoggedIn() { return localStorage.getItem('waystreamLoggedIn') === 'true'; }
-        function updateNavUI() {
-            const loggedIn = isLoggedIn();
-            loginLink?.classList.toggle('hidden', loggedIn);
-            registerLink?.classList.toggle('hidden', loggedIn);
-            logoutLink?.classList.toggle('hidden', !loggedIn);
-            footerLoginLink?.classList.toggle('hidden', loggedIn);
-            footerRegisterLink?.classList.toggle('hidden', loggedIn);
-            footerLogoutLink?.classList.toggle('hidden', !loggedIn);
-        }
-        function handleProtectedAction(event, alertMessage = 'Please log in to access this feature.') {
-            if (!isLoggedIn()) {
-                if (event) event.preventDefault();
-                alert(alertMessage);
-                return false;
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set current year in footer
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+            
+            // Mobile menu toggle
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const navLinks = document.getElementById('navLinks');
+            
+            if (mobileMenuBtn && navLinks) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    navLinks.classList.toggle('active');
+                    this.querySelector('i').classList.toggle('fa-bars');
+                    this.querySelector('i').classList.toggle('fa-times');
+                });
             }
-            return true;
-        }
-        function toggleMobileMenu() {
-            navLinksContainer.classList.toggle('active');
-            mobileMenuBtn.innerHTML = navLinksContainer.classList.contains('active') ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
-        }
-
-        // --- Map Specific Variables ---
-        let map = null; let startMarker = null; let endMarker = null; let routeLine = null; let distanceMarker = null;
-
-        // --- Map Initialization and Logic (Conditional) ---
-        function initializeMapFeatures() {
-            map = L.map('explore-map').setView([20.5937, 78.9629], 5);
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' }).addTo(map);
-            startInput?.addEventListener('change', () => searchLocation('start-input', 'start'));
-            destinationInput?.addEventListener('change', () => searchLocation('destination-input', 'destination'));
-        }
-        function clearMapLayers() {
-             if (startMarker) map?.removeLayer(startMarker); if (endMarker) map?.removeLayer(endMarker); if (routeLine) map?.removeLayer(routeLine); if (distanceMarker) map?.removeLayer(distanceMarker);
-             startMarker = null; endMarker = null; routeLine = null; distanceMarker = null;
-         }
-        function searchLocation(inputId, markerType) {
-             if (!isLoggedIn() || !map) return;
-            const query = document.getElementById(inputId).value.trim(); if (!query) return;
-            document.getElementById(inputId).style.opacity = '0.7';
-            fetch(`https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${encodeURIComponent(query)}`)
-                .then(response => response.json()).then(data => {
-                    if (data.length === 0) { alert(`No results found for "${query}". Please try a different ${markerType} location.`); return; }
-                    const latlng = [parseFloat(data[0].lat), parseFloat(data[0].lon)]; const displayName = data[0].display_name;
-                    if (markerType === 'start') { if (startMarker) map.removeLayer(startMarker); startMarker = L.marker(latlng).addTo(map).bindPopup(`<b>Start:</b><br>${displayName}`).openPopup(); }
-                    else if (markerType === 'destination') { if (endMarker) map.removeLayer(endMarker); endMarker = L.marker(latlng).addTo(map).bindPopup(`<b>Destination:</b><br>${displayName}`).openPopup(); }
-                    if (!startMarker || !endMarker) { map.setView(latlng, 10); } checkAndDrawRoute();
-                }).catch(error => { console.error('Error fetching location:', error); alert(`Failed to search for ${markerType} location. Check connection or try again.`); })
-                 .finally(() => { document.getElementById(inputId).style.opacity = '1'; });
-        }
-        function checkAndDrawRoute() {
-             if (!isLoggedIn() || !map) return;
-            if (startMarker && endMarker) {
-                const startLatLng = startMarker.getLatLng(); const endLatLng = endMarker.getLatLng();
-                if (routeLine) map.removeLayer(routeLine); if (distanceMarker) map.removeLayer(distanceMarker);
-                routeLine = L.polyline([startLatLng, endLatLng], { color: 'var(--primary)', weight: 5, opacity: 0.8 }).addTo(map);
-                const distanceInKm = (map.distance(startLatLng, endLatLng) / 1000).toFixed(1);
-                const midLat = (startLatLng.lat + endLatLng.lat) / 2; const midLng = (startLatLng.lng + endLatLng.lng) / 2;
-                 const distanceLabelIcon = L.divIcon({ html: `<div class="distance-label">${distanceInKm} km</div>`, className: '', iconSize: null });
-                distanceMarker = L.marker([midLat, midLng], { icon: distanceLabelIcon, interactive: false }).addTo(map);
-                map.fitBounds(routeLine.getBounds().pad(0.1));
+            
+            // Initialize map
+            let map;
+            let directionsService;
+            let directionsRenderer;
+            let markers = [];
+            let autocompleteStart;
+            let autocompleteDest;
+            
+            function initMap() {
+                // Create map centered on a default location (Hyderabad)
+                map = new google.maps.Map(document.getElementById('explore-map'), {
+                    center: { lat: 17.3850, lng: 78.4867 },
+                    zoom: 12
+                });
+                
+                // Initialize directions service and renderer
+                directionsService = new google.maps.DirectionsService();
+                directionsRenderer = new google.maps.DirectionsRenderer({
+                    map: map,
+                    suppressMarkers: false,
+                    polylineOptions: {
+                        strokeColor: '#1a3c87',
+                        strokeOpacity: 0.7,
+                        strokeWeight: 5
+                    }
+                });
+                
+                // Initialize autocomplete for input fields
+                autocompleteStart = new google.maps.places.Autocomplete(
+                    document.getElementById('start-input'),
+                    { types: ['geocode'] }
+                );
+                
+                autocompleteDest = new google.maps.places.Autocomplete(
+                    document.getElementById('destination-input'),
+                    { types: ['geocode'] }
+                );
+                
+                // Add current location button functionality
+                document.getElementById('currentLocationBtn').addEventListener('click', function() {
+                    if (navigator.geolocation) {
+                        const btn = this;
+                        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+                        
+                        navigator.geolocation.getCurrentPosition(
+                            function(position) {
+                                const pos = {
+                                    lat: position.coords.latitude,
+                                    lng: position.coords.longitude
+                                };
+                                
+                                // Center map on current location
+                                map.setCenter(pos);
+                                map.setZoom(15);
+                                
+                                // Add marker
+                                clearMarkers();
+                                addMarker(pos, 'Your Location');
+                                
+                                // Update start input with address
+                                const geocoder = new google.maps.Geocoder();
+                                geocoder.geocode({ location: pos }, function(results, status) {
+                                    if (status === 'OK' && results[0]) {
+                                        document.getElementById('start-input').value = results[0].formatted_address;
+                                    }
+                                });
+                                
+                                btn.innerHTML = '<i class="fas fa-location-arrow"></i>';
+                            },
+                            function(error) {
+                                console.error('Error getting location:', error);
+                                alert('Unable to get your location. Please check your browser permissions.');
+                                btn.innerHTML = '<i class="fas fa-location-arrow"></i>';
+                            }
+                        );
+                    } else {
+                        alert('Geolocation is not supported by your browser.');
+                    }
+                });
             }
-        }
-
-        // --- Event Listeners ---
-        if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', toggleMobileMenu);
-         [logoutLink, footerLogoutLink].forEach(link => { if (link) { link.addEventListener('click', (e) => { e.preventDefault(); localStorage.removeItem('waystreamLoggedIn'); localStorage.removeItem('waystreamUsername'); alert('You have been logged out.'); window.location.href = 'index.html'; }); } });
-         document.querySelectorAll('.protected-link').forEach(link => { link.addEventListener('click', (e) => { handleProtectedAction(e); }); });
-         const newsletterForm = document.getElementById('newsletterForm'); if (newsletterForm) { newsletterForm.addEventListener('submit', (e) => { e.preventDefault(); alert('Thank you for subscribing! (Simulated)'); newsletterForm.reset(); }); }
-         const currentYearSpan = document.getElementById('currentYear'); if (currentYearSpan) { currentYearSpan.textContent = new Date().getFullYear(); }
-
-        // --- Run on Page Load ---
-        document.addEventListener('DOMContentLoaded', () => {
+            
+            // Initialize the map
+            initMap();
+            
+            // Function to add a marker
+            function addMarker(location, title) {
+                const marker = new google.maps.Marker({
+                    position: location,
+                    map: map,
+                    title: title
+                });
+                markers.push(marker);
+                return marker;
+            }
+            
+            // Function to clear all markers
+            function clearMarkers() {
+                for (let i = 0; i < markers.length; i++) {
+                    markers[i].setMap(null);
+                }
+                markers = [];
+            }
+            
+            // Function to calculate and display route
+            function calculateAndDisplayRoute(start, destination) {
+                const startInput = document.getElementById('start-input').value.trim();
+                const destinationInput = document.getElementById('destination-input').value.trim();
+                
+                const btn = document.getElementById('getDirectionsBtn');
+                btn.classList.add('loading');
+                btn.disabled = true;
+                
+                // Clear previous markers
+                clearMarkers();
+                
+                // Create request for directions
+                const request = {
+                    origin: startInput,
+                    destination: destinationInput,
+                    travelMode: 'DRIVING'
+                };
+                
+                // Get directions
+                directionsService.route(request, function(result, status) {
+                    if (status === 'OK') {
+                        // Display route
+                        directionsRenderer.setDirections(result);
+                        
+                        // Get distance and duration
+                        const route = result.routes[0].legs[0];
+                        const distance = route.distance.text;
+                        const duration = route.duration.text;
+                        
+                        // Update distance display
+                        document.getElementById('distanceValue').textContent = 
+                            `${distance} (approx. ${duration})`;
+                        
+                        // Add markers for start and end points
+                        addMarker(route.start_location, 'Start: ' + startInput);
+                        addMarker(route.end_location, 'Destination: ' + destinationInput);
+                        
+                        // Show nearby places
+                        showNearbyPlaces(route.end_location);
+                    } 
+                    btn.classList.remove('loading');
+                    btn.disabled = false;
+                });
+            }
+            
+            // Function to show nearby places
+            function showNearbyPlaces(location) {
+                const placesContainer = document.getElementById('places-container');
+                
+                // In a real app, you would use the Places API here
+                // For demo purposes, we'll use dummy data
+                const dummyPlaces = [
+                    { name: 'Central Restaurant', rating: 4.5, type: 'Restaurant' },
+                    { name: 'Grand Hotel', rating: 4.2, type: 'Hotel' },
+                    { name: 'City Museum', rating: 4.7, type: 'Attraction' },
+                    { name: 'Cozy Cafe', rating: 4.3, type: 'Cafe' },
+                    { name: 'Sunset Restaurant', rating: 4.1, type: 'Restaurant' },
+                    { name: 'Historic Tower', rating: 4.8, type: 'Attraction' }
+                ];
+                
+                let placesHTML = '<h3>Nearby Places</h3>';
+                
+                dummyPlaces.forEach(place => {
+                    const stars = '★'.repeat(Math.floor(place.rating)) + 
+                                  (place.rating % 1 >= 0.5 ? '½' : '');
+                    
+                    placesHTML += `
+                        <div class="place">
+                            <div class="place-info">
+                                <h4>${place.name}</h4>
+                                <p>${place.type}</p>
+                            </div>
+                            <div class="place-rating">
+                                <span class="stars">${stars}</span>
+                                <span class="rating-value">${place.rating}</span>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                placesContainer.innerHTML = placesHTML;
+            }
+            
+            // Get Directions button click handler
+            document.getElementById('getDirectionsBtn').addEventListener('click', function() {
+                calculateAndDisplayRoute();
+            });
+            
+            // Login/logout functionality
+            function isLoggedIn() {
+                return localStorage.getItem('waystreamLoggedIn') === 'true';
+            }
+            
+            function updateNavUI() {
+                const loggedIn = isLoggedIn();
+                document.getElementById('registerLink').classList.toggle('hidden', loggedIn);
+                document.getElementById('logoutLink').classList.toggle('hidden', !loggedIn);
+                document.getElementById('footerLoginLink').classList.toggle('hidden', loggedIn);
+                document.getElementById('footerRegisterLink').classList.toggle('hidden', loggedIn);
+                document.getElementById('footerLogoutLink').classList.toggle('hidden', !loggedIn);
+            }
+            
+            document.getElementById('logoutLink').addEventListener('click', function(e) {
+                e.preventDefault();
+                localStorage.removeItem('waystreamLoggedIn');
+                localStorage.removeItem('waystreamUsername');
+                alert('You have been logged out.');
+                window.location.href = 'index.html';
+            });
+            
+            // Newsletter form submission
+            document.getElementById('newsletterForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const email = document.getElementById('newsletter-email').value;
+                if (email) {
+                    alert('Thank you for subscribing!');
+                    this.reset();
+                }
+            });
+            
+            // Animate elements on scroll
+            const animateOnScroll = () => {
+                const elements = document.querySelectorAll('.fade-in');
+                const screenPosition = window.innerHeight / 1.3;
+                elements.forEach(element => {
+                    if (window.getComputedStyle(element).opacity === '1') return;
+                    const elementPosition = element.getBoundingClientRect().top;
+                    if (elementPosition < screenPosition) {
+                        element.style.opacity = '1';
+                        element.style.transform = 'translateY(0)';
+                    }
+                });
+            };
+            
+            // Initial setup
             updateNavUI();
-            if (isLoggedIn()) {
-                mapLoginPrompt.style.display = 'none'; mapSearchBox.style.display = 'block'; initializeMapFeatures();
-            } else {
-                mapLoginPrompt.style.display = 'flex'; mapSearchBox.style.display = 'none';
-            }
+            animateOnScroll();
+            window.addEventListener('scroll', animateOnScroll);
+            
+            // Calculate initial route with default values
+            calculateAndDisplayRoute();
         });
     </script>
 </body>
