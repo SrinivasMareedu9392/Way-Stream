@@ -978,6 +978,10 @@
             }
             return true;
         }
+        window.onload = function() {
+            window.scrollTo(0, 0); // Scroll to top-left corner
+        };
+
 
         function loadReviewsFromStorage() {
             try {
