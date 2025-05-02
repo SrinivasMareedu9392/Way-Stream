@@ -7,21 +7,20 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Leaflet CSS (Optional if map is only on Map.html) -->
-    <!-- <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"> -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #0848f8;
-            --primary-dark: #0639c7;
-            --secondary: #ff6b6b;
+            --primary: #1a3c87; /* Deep, professional blue */
+            --primary-dark: #152e6e; /* Darker shade for hover */
+            --secondary: #f4a261; /* Warm accent for CTAs */
+            --accent: #2a9d8f; /* Teal for secondary highlights */
             --light: #ffffff;
-            --dark: #222222;
-            --gray: #f5f5f5;
-            --dark-gray: #888888;
+            --dark: #1a1a1a;
+            --gray: #f8f9fa;
+            --dark-gray: #6b7280;
             --transition: all 0.3s ease;
-            --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            --shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.2);
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --shadow-hover: 0 6px 20px rgba(0, 0, 0, 0.15);
         }
 
         * {
@@ -31,9 +30,9 @@
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Inter', sans-serif;
             color: var(--dark);
-            line-height: 1.6;
+            line-height: 1.7;
             background-color: var(--gray);
             overflow-x: hidden;
         }
@@ -41,12 +40,13 @@
         h1, h2, h3, h4 {
             font-family: 'Playfair Display', serif;
             font-weight: 600;
+            color: var(--primary-dark);
         }
 
         /* Header Styles */
         header {
-            background: linear-gradient(rgba(110, 109, 109, 0.7), rgba(16, 16, 16, 0.7)),
-                        url('https://img.freepik.com/free-vector/realistic-travel-background-with-elements_52683-77784.jpg') no-repeat center center/cover;
+            background: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)),
+                        url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
             height: 100vh;
             color: var(--light);
             display: flex;
@@ -59,17 +59,18 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1.5rem 5%;
-            background-color: rgba(8, 72, 248, 0.9);
+            padding: 1.2rem 5%;
+            background: rgba(26, 60, 135, 0.95);
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
             box-shadow: var(--shadow);
+            backdrop-filter: blur(5px);
         }
 
         .logo {
-            font-size: 2.2rem;
+            font-size: 2rem;
             font-weight: 700;
             color: var(--light);
             text-decoration: none;
@@ -78,21 +79,24 @@
         }
 
         .logo i {
-            margin-right: 0.5rem;
+            margin-right: 0.6rem;
             color: var(--secondary);
+            font-size: 1.8rem;
         }
 
         .nav-links {
             display: flex;
-            gap: 2rem;
-            align-items: center; /* Align items vertically */
+            gap: 2.5rem;
+            align-items: center;
         }
 
         .nav-links a {
             color: var(--light);
             text-decoration: none;
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
             transition: var(--transition);
             position: relative;
             padding: 0.5rem 0;
@@ -115,20 +119,19 @@
 
         .nav-links a:hover {
             color: var(--secondary);
+            transform: translateY(-2px);
         }
 
-        /* Style for hiding elements */
         .hidden {
             display: none !important;
         }
-
 
         .mobile-menu-btn {
             display: none;
             background: none;
             border: none;
             color: var(--light);
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             cursor: pointer;
         }
 
@@ -141,46 +144,48 @@
             align-items: center;
             text-align: center;
             padding: 0 2rem;
-            /* Adjust top margin to account for fixed navbar height */
-            margin-top: 80px; /* Example height, adjust if needed */
+            margin-top: 80px;
         }
 
         .hero h1 {
-            font-size: 4rem;
+            font-size: 4.5rem;
             margin-bottom: 1.5rem;
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
+            line-height: 1.2;
         }
 
         .hero p {
-            font-size: 1.2rem;
-            max-width: 700px;
-            margin-bottom: 2rem;
+            font-size: 1.3rem;
+            max-width: 750px;
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
         }
 
         .cta-button {
             display: inline-block;
-            background-color: var(--secondary);
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
             color: var(--light);
-            padding: 1rem 2.5rem;
+            padding: 1.2rem 3rem;
             border-radius: 50px;
             text-decoration: none;
             font-weight: 600;
             font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             transition: var(--transition);
             box-shadow: var(--shadow);
-            border: 2px solid var(--secondary);
         }
 
         .cta-button:hover {
-            background-color: transparent;
-            color: var(--secondary);
+            background: linear-gradient(135deg, var(--accent), var(--secondary));
             box-shadow: var(--shadow-hover);
-            transform: translateY(-3px);
+            transform: translateY(-4px);
         }
 
         /* Main Content Sections */
         .section {
-            padding: 6rem 5%;
+            padding: 7rem 5%;
+            background-color: var(--light);
         }
 
         .section-title {
@@ -189,27 +194,30 @@
         }
 
         .section-title h2 {
-            font-size: 2.5rem;
+            font-size: 3rem;
             color: var(--primary);
             margin-bottom: 1rem;
         }
 
         .section-title p {
             color: var(--dark-gray);
-            max-width: 700px;
+            max-width: 800px;
             margin: 0 auto;
+            font-size: 1.1rem;
         }
 
         /* About Section */
         .about-content {
             display: flex;
             align-items: center;
-            gap: 4rem;
+            gap: 5rem;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .about-img {
             flex: 1;
-            border-radius: 10px;
+            border-radius: 15px;
             overflow: hidden;
             box-shadow: var(--shadow);
         }
@@ -218,11 +226,11 @@
             width: 100%;
             height: auto;
             display: block;
-            transition: var(--transition);
+            transition: transform 0.5s ease;
         }
 
         .about-img:hover img {
-            transform: scale(1.05);
+            transform: scale(1.08);
         }
 
         .about-text {
@@ -230,79 +238,166 @@
         }
 
         .about-text h3 {
-            font-size: 2rem;
+            font-size: 2.2rem;
             margin-bottom: 1.5rem;
-            color: var(--primary-dark);
         }
 
         .about-text p {
             margin-bottom: 1.5rem;
+            color: var(--dark-gray);
         }
 
         .about-features {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 1.5rem;
+            gap: 2rem;
             margin-top: 2rem;
         }
 
         .feature-item {
             display: flex;
-            align-items: flex-start;
-            gap: 1rem;
+            align-items: center;
+            gap: 1.5rem;
+            background: var(--gray);
+            padding: 1.5rem;
+            border-radius: 10px;
+            transition: var(--transition);
+        }
+
+        .feature-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
         }
 
         .feature-icon {
-            background-color: var(--primary);
+            background: var(--primary);
             color: var(--light);
-            width: 50px;
-            height: 50px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
+            font-size: 1.5rem;
             flex-shrink: 0;
         }
 
-         /* Form Styles common */
+        /* Destination Section */
+        .destination-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .destination-card {
+            background: var(--light);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .destination-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .destination-img img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .destination-content {
+            padding: 1.5rem;
+        }
+
+        .destination-content h4 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .destination-content p {
+            color: var(--dark-gray);
+            font-size: 0.95rem;
+        }
+
+        /* Testimonial Section */
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .testimonial-card {
+            background: var(--gray);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .testimonial-card p {
+            font-style: italic;
+            color: var(--dark-gray);
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-card h4 {
+            font-size: 1.2rem;
+            color: var(--primary);
+        }
+
+        /* Form Styles */
         .form-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.8rem;
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.6rem;
             font-weight: 500;
+            color: var(--primary-dark);
         }
 
         .form-control {
             width: 100%;
-            padding: 0.8rem 1rem;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+            padding: 1rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
             font-family: inherit;
             font-size: 1rem;
             transition: var(--transition);
+            background: var(--light);
         }
 
         .form-control:focus {
             outline: none;
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(8, 72, 248, 0.2);
+            box-shadow: 0 0 0 4px rgba(26, 60, 135, 0.1);
         }
 
         textarea.form-control {
-            min-height: 150px;
+            min-height: 160px;
             resize: vertical;
         }
 
         .submit-btn {
-            background-color: var(--primary);
+            background: var(--primary);
             color: var(--light);
             border: none;
-            padding: 1rem 2rem;
-            border-radius: 5px;
+            padding: 1.2rem 2.5rem;
+            border-radius: 8px;
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
@@ -310,31 +405,31 @@
         }
 
         .submit-btn:hover {
-            background-color: var(--primary-dark);
-            transform: translateY(-2px);
+            background: var(--primary-dark);
+            transform: translateY(-3px);
             box-shadow: var(--shadow-hover);
         }
 
-
         /* Footer */
         footer {
-            background-color: var(--dark);
+            background: var(--primary-dark);
             color: var(--light);
-            padding: 4rem 5% 2rem;
+            padding: 5rem 5% 3rem;
         }
 
         .footer-content {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 3rem;
-            margin-bottom: 3rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 4rem;
+            max-width: 1200px;
+            margin: 0 auto 3rem;
         }
 
         .footer-col h3 {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             margin-bottom: 1.5rem;
             position: relative;
-            padding-bottom: 0.5rem;
+            padding-bottom: 0.6rem;
         }
 
         .footer-col h3::after {
@@ -342,97 +437,108 @@
             position: absolute;
             bottom: 0;
             left: 0;
-            width: 50px;
-            height: 2px;
-            background-color: var(--secondary);
+            width: 60px;
+            height: 3px;
+            background: var(--secondary);
         }
 
         .footer-col p {
-            margin-bottom: 1rem;
-            opacity: 0.8;
+            margin-bottom: 1.2rem;
+            opacity: 0.85;
+            font-size: 0.95rem;
         }
 
         .footer-links li {
-            margin-bottom: 0.8rem;
+            margin-bottom: 1rem;
             list-style: none;
         }
 
         .footer-links a {
             color: var(--light);
             text-decoration: none;
-            opacity: 0.8;
+            opacity: 0.85;
+            font-size: 0.95rem;
             transition: var(--transition);
         }
 
         .footer-links a:hover {
             opacity: 1;
             color: var(--secondary);
-            padding-left: 5px;
+            padding-left: 8px;
         }
 
         .social-links {
             display: flex;
-            gap: 1rem;
+            gap: 1.2rem;
         }
 
         .social-links a {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 40px;
-            height: 40px;
-            background-color: rgba(255, 255, 255, 0.1);
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.15);
             color: var(--light);
             border-radius: 50%;
             transition: var(--transition);
         }
 
         .social-links a:hover {
-            background-color: var(--secondary);
-            transform: translateY(-3px);
+            background: var(--secondary);
+            transform: translateY(-4px);
         }
 
-         /* Newsletter specific adjustments */
         .newsletter-form .form-group {
-            margin-bottom: 1rem;
-        }
-         .newsletter-form .submit-btn {
-            width: 100%;
-            padding: 0.8rem 1.5rem;
+            margin-bottom: 1.2rem;
         }
 
+        .newsletter-form .submit-btn {
+            width: 100%;
+            padding: 1rem;
+        }
 
         .footer-bottom {
             text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            opacity: 0.8;
+            padding-top: 3rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            opacity: 0.9;
+            font-size: 0.9rem;
         }
 
         /* Responsive Design */
         @media (max-width: 992px) {
             .about-content {
                 flex-direction: column;
+                gap: 3rem;
             }
-             .about-features {
-                 grid-template-columns: 1fr; /* Stack features on smaller tablets */
+
+            .about-features {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
             }
         }
 
         @media (max-width: 768px) {
             .nav-links {
                 position: fixed;
-                /* Adjust top based on actual navbar height */
-                top: 75px; /* Example: Adjust if navbar padding/height changes */
+                top: 70px;
                 left: -100%;
                 width: 100%;
-                height: calc(100vh - 75px); /* Adjust height accordingly */
-                background-color: var(--primary-dark);
+                height: calc(100vh - 70px);
+                background: var(--primary-dark);
                 flex-direction: column;
                 align-items: center;
                 justify-content: flex-start;
-                padding-top: 3rem;
-                gap: 2rem;
+                padding-top: 4rem;
+                gap: 3rem;
                 transition: var(--transition);
                 z-index: 999;
             }
@@ -447,63 +553,56 @@
             }
 
             .hero {
-                 margin-top: 75px; /* Match navbar top offset */
+                margin-top: 70px;
             }
 
             .hero h1 {
-                font-size: 2.8rem; /* Slightly smaller for mobile */
-            }
-             .hero p {
-                 font-size: 1.1rem;
+                font-size: 2.8rem;
             }
 
             .section {
-                padding: 4rem 5%;
+                padding: 5rem 5%;
             }
 
-             .about-content {
-                 gap: 2rem; /* Reduce gap on mobile */
-             }
-             .about-text h3 {
-                 font-size: 1.8rem;
-             }
-              .about-features {
-                 grid-template-columns: 1fr; /* Ensure stacking */
-             }
+            .about-text h3 {
+                font-size: 1.8rem;
+            }
 
-             .footer-content {
-                 grid-template-columns: 1fr; /* Stack footer columns */
-                 text-align: center;
-             }
-             .footer-col h3::after {
-                 left: 50%; /* Center the underline */
-                 transform: translateX(-50%);
-             }
-             .social-links {
-                 justify-content: center; /* Center social icons */
-             }
-             .newsletter-form {
-                 max-width: 350px; /* Limit width */
-                 margin: 0 auto; /* Center form */
-             }
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-col h3::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+
+            .newsletter-form {
+                max-width: 400px;
+                margin: 0 auto;
+            }
         }
 
         /* Animations */
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
+            from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         .fade-in {
             animation: fadeIn 1s ease forwards;
             opacity: 0;
-            transform: translateY(20px);
+            transform: translateY(30px);
         }
 
-        .delay-1 { animation-delay: 0.2s; }
-        .delay-2 { animation-delay: 0.4s; }
-        .delay-3 { animation-delay: 0.6s; }
-
+        .delay-1 { animation-delay: 0.3s; }
+        .delay-2 { animation-delay: 0.6s; }
+        .delay-3 { animation-delay: 0.9s; }
     </style>
 </head>
 <body>
@@ -521,8 +620,6 @@
                 <a href="Review.html" class="protected-link">Reviews</a>
                 <a href="Map.html" class="protected-link">Map</a>
                 <a href="Contact.html" class="protected-link">Contact</a>
-
-                <!-- These links will be shown/hidden by JavaScript -->
                 <a href="Register.html" class="login-btn" id="loginLink">Login/Register</a>
                 <a href="index.html" class="login-btn hidden" id="logoutLink">Logout</a>
             </div>
@@ -530,9 +627,9 @@
 
         <!-- Hero Section -->
         <section class="hero">
-            <h1 class="fade-in">Discover Your Next Adventure</h1>
-            <p class="fade-in delay-1">Explore the world's most breathtaking destinations with our expert travel guides and curated experiences.</p>
-            <a href="#about" class="cta-button fade-in delay-2">Explore Now</a>
+            <h1 class="fade-in">Embark on Unforgettable Journeys</h1>
+            <p class="fade-in delay-1">Discover handcrafted travel experiences designed to inspire and connect you with the world's most stunning destinations.</p>
+            <a href="#about" class="cta-button fade-in delay-2">Start Exploring</a>
         </section>
     </header>
 
@@ -542,24 +639,24 @@
         <section class="section" id="about">
             <div class="section-title fade-in">
                 <h2>About WayStream</h2>
-                <p>We are dedicated to providing unforgettable travel experiences tailored to your preferences.</p>
+                <p>Crafting personalized travel experiences that blend adventure, culture, and sustainability.</p>
             </div>
             <div class="about-content fade-in delay-1">
                 <div class="about-img">
-                    <img src="https://images.unsplash.com/photo-1506929562872-bb421503ef21?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1368&q=80" alt="Travel Team">
+                    <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1368&q=80" alt="Travel Team">
                 </div>
                 <div class="about-text">
-                    <h3>Our Story</h3>
-                    <p>Founded in 2015, WayStream began as a small team of travel enthusiasts with a passion for sharing the world's wonders. Today, we've grown into a global community of explorers, offering handcrafted journeys to over 50 countries.</p>
-                    <p>Our mission is to connect people with authentic travel experiences that inspire, educate, and create lasting memories.</p>
+                    <h3>Our Passion for Travel</h3>
+                    <p>Since 2015, WayStream has been transforming travel dreams into reality. Our team of global explorers curates journeys that immerse you in the heart of each destination.</p>
+                    <p>We believe travel should inspire, educate, and leave a positive impact. Join us to explore over 50 countries with confidence and wonder.</p>
                     <div class="about-features">
                         <div class="feature-item">
                             <div class="feature-icon">
                                 <i class="fas fa-globe-americas"></i>
                             </div>
                             <div>
-                                <h4>Global Network</h4>
-                                <p>50+ countries and counting</p>
+                                <h4>Worldwide Reach</h4>
+                                <p>Explore 50+ countries seamlessly</p>
                             </div>
                         </div>
                         <div class="feature-item">
@@ -567,8 +664,8 @@
                                 <i class="fas fa-users"></i>
                             </div>
                             <div>
-                                <h4>Expert Guides</h4>
-                                <p>Local specialists</p> <!-- Shortened for space -->
+                                <h4>Local Expertise</h4>
+                                <p>Guides with deep cultural knowledge</p>
                             </div>
                         </div>
                         <div class="feature-item">
@@ -576,17 +673,17 @@
                                 <i class="fas fa-award"></i>
                             </div>
                             <div>
-                                <h4>Award Winning</h4>
-                                <p>Recognized for excellence</p>
+                                <h4>Trusted Quality</h4>
+                                <p>Award-winning travel services</p>
                             </div>
                         </div>
                         <div class="feature-item">
                             <div class="feature-icon">
-                                <i class="fas fa-heart"></i>
+                                <i class="fas fa-leaf"></i>
                             </div>
                             <div>
-                                <h4>Sustainable</h4>
-                                <p>Eco-friendly travel</p> <!-- Shortened -->
+                                <h4>Sustainable Travel</h4>
+                                <p>Eco-conscious adventures</p>
                             </div>
                         </div>
                     </div>
@@ -594,23 +691,64 @@
             </div>
         </section>
 
-        <!-- Placeholder Sections -->
-        <section class="section" id="placeholder-destinations">
-             <div class="section-title fade-in">
-                 <h2>Popular Destinations</h2>
-                 <p>Explore curated destinations (Map page requires login).</p>
-                 <!-- Add some destination card examples if desired -->
-             </div>
+        <!-- Destinations Section -->
+        <section class="section" id="destinations">
+            <div class="section-title fade-in">
+                <h2>Popular Destinations</h2>
+                <p>Discover our curated selection of breathtaking destinations around the globe.</p>
+            </div>
+            <div class="destination-grid fade-in delay-1">
+                <div class="destination-card">
+                    <div class="destination-img">
+                        <img src="https://images.unsplash.com/photo-1499678329028-101435549a4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Santorini">
+                    </div>
+                    <div class="destination-content">
+                        <h4>Santorini, Greece</h4>
+                        <p>Experience iconic whitewashed villages and stunning sunsets.</p>
+                    </div>
+                </div>
+                <div class="destination-card">
+                    <div class="destination-img">
+                        <img src="https://images.unsplash.com/photo-1533929736458-ca588d08c8be?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Kyoto">
+                    </div>
+                    <div class="destination-content">
+                        <h4>Kyoto, Japan</h4>
+                        <p>Immerse yourself in ancient temples and vibrant culture.</p>
+                    </div>
+                </div>
+                <div class="destination-card">
+                    <div class="destination-img">
+                        <img src="https://images.unsplash.com/photo-1437719417032-8595fd9e9dc6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Patagonia">
+                    </div>
+                    <div class="destination-content">
+                        <h4>Patagonia, Chile</h4>
+                        <p>Adventure awaits in rugged landscapes and glaciers.</p>
+                    </div>
+                </div>
+            </div>
         </section>
 
-         <section class="section" id="placeholder-testimonials">
-             <div class="section-title fade-in">
-                 <h2>What Our Travelers Say</h2>
-                 <p>Read reviews from our happy clients (Reviews page requires login).</p>
-                 <!-- Add some testimonial card examples if desired -->
-             </div>
+        <!-- Testimonials Section -->
+        <section class="section" id="testimonials">
+            <div class="section-title fade-in">
+                <h2>What Our Travelers Say</h2>
+                <p>Hear from our community of explorers about their unforgettable journeys.</p>
+            </div>
+            <div class="testimonial-grid fade-in delay-1">
+                <div class="testimonial-card">
+                    <p>"WayStream made our trip to Italy seamless and unforgettable. The local guides were incredible!"</p>
+                    <h4>Emma Thompson</h4>
+                </div>
+                <div class="testimonial-card">
+                    <p>"From Machu Picchu to the Amazon, every detail was perfect. Highly recommend!"</p>
+                    <h4>James Patel</h4>
+                </div>
+                <div class="testimonial-card">
+                    <p>"Sustainable travel done right. I loved the eco-friendly focus in Costa Rica."</p>
+                    <h4>Sofia Rivera</h4>
+                </div>
+            </div>
         </section>
-
     </main>
 
     <!-- Footer -->
@@ -618,7 +756,7 @@
         <div class="footer-content">
             <div class="footer-col">
                 <h3>WayStream</h3>
-                <p>Creating unforgettable travel experiences since 2015. Curated journeys connecting you to the heart of each destination.</p>
+                <p>Transforming travel since 2015 with curated, sustainable journeys across the globe.</p>
                 <div class="social-links">
                     <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
                     <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
@@ -633,21 +771,19 @@
                     <li><a href="Review.html" class="protected-link">Reviews</a></li>
                     <li><a href="Map.html" class="protected-link">Map</a></li>
                     <li><a href="Contact.html" class="protected-link">Contact</a></li>
-                     <!-- Optionally add Login/Register/Logout here too, controlled by JS -->
-                     <li><a href="Login.html" id="footerLoginLink">Login</a></li>
-                     <li><a href="Register.html" id="footerRegisterLink">Register</a></li>
-                     <li><a href="#" class="hidden" id="footerLogoutLink">Logout</a></li>
+                    <li><a href="Register.html" id="footerRegisterLink">Register</a></li>
+                    <li><a href="#" class="hidden" id="footerLogoutLink">Logout</a></li>
                 </ul>
             </div>
             <div class="footer-col">
                 <h3>Newsletter</h3>
-                <p>Subscribe for travel inspiration and offers.</p>
+                <p>Subscribe for exclusive travel tips and offers.</p>
                 <form class="newsletter-form" id="newsletterForm">
                     <div class="form-group">
-                         <label for="newsletterEmail" class="hidden">Email Address</label> <!-- Hidden label for accessibility -->
-                        <input type="email" id="newsletterEmail" placeholder="Your Email" class="form-control" required>
+                        <label for="newsletterEmail" class="hidden">Email Address</label>
+                        <input type="email" id="newsletterEmail" placeholder="Enter your email" class="form-control" required>
                     </div>
-                    <button type="submit" class="submit-btn">Subscribe</button>
+                    <button type="submit" class="submit-btn">Subscribe Now</button>
                 </form>
             </div>
         </div>
@@ -657,103 +793,71 @@
     </footer>
 
     <!-- JavaScript -->
-    <!-- Leaflet JS (Only include if map elements are actually on THIS page) -->
-    <!-- <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script> -->
     <script>
         // --- UI Elements ---
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const navLinksContainer = document.getElementById('navLinks');
-
-        // Nav Links
         const loginLink = document.getElementById('loginLink');
-        const registerLink = document.getElementById('registerLink');
         const logoutLink = document.getElementById('logoutLink');
-
-        // Footer Links (Optional, if you want them to sync)
         const footerLoginLink = document.getElementById('footerLoginLink');
         const footerRegisterLink = document.getElementById('footerRegisterLink');
         const footerLogoutLink = document.getElementById('footerLogoutLink');
-
-        // Protected Content Links/Actions
         const protectedLinks = document.querySelectorAll('.protected-link');
 
         // --- Core Functions ---
-
-        // Check login state
         function isLoggedIn() {
             return localStorage.getItem('waystreamLoggedIn') === 'true';
         }
 
-        // Update Navigation UI (Header and Footer)
         function updateNavUI() {
             const loggedIn = isLoggedIn();
-
-            // Header Nav
             loginLink?.classList.toggle('hidden', loggedIn);
-            registerLink?.classList.toggle('hidden', loggedIn);
             logoutLink?.classList.toggle('hidden', !loggedIn);
-
-            // Footer Nav (Optional Sync)
             footerLoginLink?.classList.toggle('hidden', loggedIn);
             footerRegisterLink?.classList.toggle('hidden', loggedIn);
             footerLogoutLink?.classList.toggle('hidden', !loggedIn);
         }
 
-        // Handle clicks on protected links/actions
         function handleProtectedAction(event, alertMessage = 'Please log in to access this feature.') {
             if (!isLoggedIn()) {
                 event.preventDefault();
                 alert(alertMessage);
-                // Optionally, redirect to login: window.location.href = 'Login.html';
-                return false; // Action blocked
+                return false;
             }
-            return true; // Action allowed
+            return true;
         }
 
-        // Mobile Menu Toggle
         function toggleMobileMenu() {
             navLinksContainer.classList.toggle('active');
             mobileMenuBtn.innerHTML = navLinksContainer.classList.contains('active') ?
                 '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
         }
 
-        // Smooth Scrolling (Updated to check protection)
         function smoothScrollToTarget(event) {
-             // Prevent default scroll behavior immediately
-             event.preventDefault();
-
-             // For anchor links, check protection *only* if the link has the class
-             if (this.classList.contains('protected-link')) {
-                 if (!handleProtectedAction(event, 'Please log in to view this section.')) {
-                     return; // Stop if protected and not logged in
-                 }
-             }
-
-            // Proceed with smooth scroll if allowed OR not protected
+            event.preventDefault();
+            if (this.classList.contains('protected-link') && !handleProtectedAction(event, 'Please log in to view this section.')) {
+                return;
+            }
             if (this.getAttribute('href') === '#') return;
             const targetId = this.getAttribute('href').substring(1);
             const targetElement = document.getElementById(targetId);
-
             if (targetElement) {
-                // Calculate offset dynamically based on navbar height
-                 const navbarHeight = document.querySelector('.navbar')?.offsetHeight || 80; // Default fallback
+                const navbarHeight = document.querySelector('.navbar')?.offsetHeight || 70;
                 window.scrollTo({
                     top: targetElement.offsetTop - navbarHeight,
                     behavior: 'smooth'
                 });
-                // Close mobile menu if open
                 if (navLinksContainer.classList.contains('active')) {
-                    toggleMobileMenu(); // Use the function to ensure icon updates
+                    toggleMobileMenu();
                 }
             }
         }
 
-        // Animation on Scroll
         const animateOnScroll = () => {
             const elements = document.querySelectorAll('.fade-in');
-            const screenPosition = window.innerHeight / 1.2;
+            const screenPosition = window.innerHeight / 1.3;
             elements.forEach(element => {
-                if (window.getComputedStyle(element).opacity === '1') return; // Skip already visible
+                if (window.getComputedStyle(element).opacity === '1') return;
                 const elementPosition = element.getBoundingClientRect().top;
                 if (elementPosition < screenPosition) {
                     element.style.opacity = '1';
@@ -763,71 +867,53 @@
         };
 
         // --- Event Listeners ---
-
-        // Mobile Menu Button
         if (mobileMenuBtn) {
             mobileMenuBtn.addEventListener('click', toggleMobileMenu);
         }
 
-        // Smooth Scrolling for Anchor Links (#...)
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
-                 smoothScrollToTarget.call(this, e);
-             });
+                smoothScrollToTarget.call(this, e);
+            });
         });
 
-        // Logout Link (Header and Footer)
         [logoutLink, footerLogoutLink].forEach(link => {
-             if (link) {
-                 link.addEventListener('click', (e) => {
-                     e.preventDefault();
-                     localStorage.removeItem('waystreamLoggedIn'); // Log out
-                     alert('You have been logged out.');
-                     window.location.reload(); // Reload to reflect changes
-                 });
-             }
-         });
+            if (link) {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    localStorage.removeItem('waystreamLoggedIn');
+                    alert('You have been logged out.');
+                    window.location.reload();
+                });
+            }
+        });
 
-
-        // Protected Links (Check login on click)
         protectedLinks.forEach(link => {
             link.addEventListener('click', (e) => {
                 handleProtectedAction(e);
             });
         });
 
-        // Newsletter Form (Example of potentially protected form)
         const newsletterForm = document.getElementById('newsletterForm');
         if (newsletterForm) {
-             newsletterForm.addEventListener('submit', (e) => {
-                 e.preventDefault(); // Always prevent default for client-side handling
-                  // Decide if subscription requires login
-                 // if (!handleProtectedAction(e, 'Please login to subscribe.')) {
-                 //     return; // Stop if login required and user isn't logged in
-                 // }
-
-                 // --- Handle Subscription (Simulated) ---
-                 alert('Thank you for subscribing! (Simulated)');
-                 newsletterForm.reset();
-                 // --- End Simulation ---
-             });
+            newsletterForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                alert('Thank you for subscribing! (Simulated)');
+                newsletterForm.reset();
+            });
         }
 
-        // Dynamic Year in Footer
         const currentYearSpan = document.getElementById('currentYear');
         if (currentYearSpan) {
             currentYearSpan.textContent = new Date().getFullYear();
         }
 
-        // --- Run on Page Load ---
         document.addEventListener('DOMContentLoaded', () => {
-            updateNavUI();      // Set initial Nav bar state
-            animateOnScroll();  // Initial animation check
+            updateNavUI();
+            animateOnScroll();
         });
 
-        // Re-check animations on scroll
         window.addEventListener('scroll', animateOnScroll);
-
     </script>
 </body>
 </html>
