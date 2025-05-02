@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WayStream - Login/Register</title> <!-- Updated Title -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+            min-height: 100vh;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+            display: flex; /* Use flex to center content */
+            flex-direction: column; /* Stack header and container */
+            align-items: center; /* Center items horizontally */
+            padding-top: 2rem; /* Add some padding at the top */
+        }
+
+        .header {
+            text-align: center;
+            padding: 0 1rem 2rem 1rem; /* Adjusted padding */
+            color: #fff;
+            animation: fadeDown 1s ease;
+            width: 100%; /* Ensure header takes full width */
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            letter-spacing: 3px;
+            background: linear-gradient(45deg, #00ff87, #60efff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Removed container flex centering as body handles it */
+        /* .container { ... } */
+
+        .form-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 2.5rem; /* Slightly more padding */
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            width: 90%; /* Responsive width */
+            max-width: 400px; /* Max width */
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 2rem; /* Add margin at the bottom */
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            padding-right: 3rem; /* Make space for icon */
+        }
+
+        .form-group input:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 10px rgba(96, 239, 255, 0.5);
+        }
+
+        .form-group label {
+            position: absolute;
+            left: 1rem;
+            top: 1rem; /* Align with input padding */
+            color: rgba(255, 255, 255, 0.6);
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+
+        /* Float label when input has focus OR has content */
+        .form-group input:focus ~ label,
+        .form-group input:not(:placeholder-shown) ~ label { /* Use :not(:placeholder-shown) for better compatibility */
+            top: -12px; /* Adjust float position */
+            left: 5px; /* Adjust float position */
+            font-size: 0.75rem; /* Smaller font size */
+            color: #60efff;
+            background-color: #252525; /* Add small background to cover input line */
+            padding: 0 5px;
+            border-radius: 3px;
+        }
+
+         /* Keep icon visible */
+         .icon {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.6);
+            pointer-events: none; /* Prevent icon interfering with input click */
+        }
+
+        .btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(45deg, #00ff87, #60efff);
+            border: none;
+            border-radius: 5px;
+            color: #1a1a1a;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(96, 239, 255, 0.4);
+        }
+
+        .toggle-form {
+            text-align: center;
+            margin-top: 1.5rem; /* Increased margin */
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem; /* Slightly smaller */
+        }
+
+        .toggle-form a {
+            color: #60efff;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: 500; /* Make link bolder */
+        }
+        .toggle-form a:hover {
+             text-decoration: underline;
+        }
+
+        .error-message {
+            color: #ff8787; /* Brighter red */
+            background-color: rgba(255, 107, 107, 0.1); /* Subtle background */
+            border: 1px solid rgba(255, 107, 107, 0.3);
+            padding: 0.75rem;
+            border-radius: 5px;
+            text-align: center;
+            margin-bottom: 1rem;
+            display: none;
+            animation: shake 0.4s ease;
+            font-size: 0.9rem;
+        }
+
+        @keyframes fadeDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25%, 75% { transform: translateX(-8px); }
+            50% { transform: translateX(8px); }
+        }
+
+        .panel {
+            display: none;
+            animation: slideIn 0.6s ease forwards; /* Use forwards to keep state */
+        }
+
+        .panel.active {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(30px); /* Smaller slide */
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+
+        @media (max-width: 480px) {
+            .header h1 {
+                 font-size: 2.5rem; /* Adjust header size */
+            }
+            .form-container {
+                width: 90%;
+                padding: 2rem; /* Adjust padding */
+            }
+            .form-group input:focus ~ label,
+            .form-group input:not(:placeholder-shown) ~ label {
+                 top: -10px; /* Adjust float for smaller screens if needed */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>WayStream</h1>
+    </div>
+
+    <!-- Container no longer needed for centering -->
+    <div class="form-container">
+        <!-- Login Form -->
+        <!-- Removed action attribute as JS handles submission -->
+        <form id="loginForm" class="panel active">
+            <div class="error-message" id="loginError">Invalid username or password!</div>
+            <div class="form-group">
+                <!-- Added placeholder attribute for better UX with floating labels -->
+                <input type="text" id="loginUsername" required placeholder=" ">
+                <label for="loginUsername">Username</label>
+                <i class="fas fa-user icon"></i>
+            </div>
+            <div class="form-group">
+                <input type="password" id="loginPassword" required placeholder=" ">
+                <label for="loginPassword">Password</label>
+                <i class="fas fa-lock icon"></i>
+            </div>
+            <button type="submit" class="btn">Login</button>
+            <div class="toggle-form">
+                Don't have an account? <a onclick="showRegister()">Register</a>
+            </div>
+        </form>
+
+        <!-- Register Form -->
+        <form id="registerForm" class="panel">
+            <div class="error-message" id="registerError">Username already exists!</div>
+            <div class="form-group">
+                <input type="text" id="registerUsername" required placeholder=" ">
+                <label for="registerUsername">Choose Username</label>
+                <i class="fas fa-user icon"></i>
+            </div>
+            <div class="form-group">
+                <input type="password" id="registerPassword" required placeholder=" ">
+                <label for="registerPassword">Create Password</label>
+                <i class="fas fa-lock icon"></i>
+            </div>
+            <button type="submit" class="btn">Register</button>
+            <div class="toggle-form">
+                Already have an account? <a onclick="showLogin()">Login</a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        const loginForm = document.getElementById('loginForm');
+        const registerForm = document.getElementById('registerForm');
+        const loginError = document.getElementById('loginError');
+        const registerError = document.getElementById('registerError');
+
+        // Initialize users array in localStorage if it doesn't exist
+        if (!localStorage.getItem('users')) {
+            localStorage.setItem('users', JSON.stringify([]));
+        }
+
+        function showRegister() {
+            loginError.style.display = 'none'; // Hide login error when switching
+            registerForm.classList.add('active');
+            loginForm.classList.remove('active');
+        }
+
+        function showLogin() {
+            registerError.style.display = 'none'; // Hide register error when switching
+            loginForm.classList.add('active');
+            registerForm.classList.remove('active');
+        }
+
+        // Handle Registration
+        registerForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            registerError.style.display = 'none'; // Reset error message
+
+            const username = document.getElementById('registerUsername').value.trim(); // Trim whitespace
+            const password = document.getElementById('registerPassword').value;
+            const users = JSON.parse(localStorage.getItem('users'));
+
+            // Basic validation (add more as needed)
+            if (!username || !password) {
+                 registerError.textContent = "Username and password cannot be empty.";
+                 registerError.style.display = 'block';
+                 return;
+            }
+             if (password.length < 4) { // Example: Minimum password length
+                 registerError.textContent = "Password must be at least 4 characters.";
+                 registerError.style.display = 'block';
+                 return;
+            }
+
+            if (users.some(user => user.username.toLowerCase() === username.toLowerCase())) { // Case-insensitive check
+                registerError.textContent = "Username already exists!";
+                registerError.style.display = 'block';
+                return;
+            }
+
+            // Add new user
+            users.push({ username, password }); // In a real app, hash the password here!
+            localStorage.setItem('users', JSON.stringify(users));
+
+            alert('Registration successful! Please log in.'); // User feedback
+            document.getElementById('registerUsername').value = ''; // Clear fields
+            document.getElementById('registerPassword').value = '';
+            showLogin(); // Switch to login form
+        });
+
+        // Handle Login
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            loginError.style.display = 'none'; // Reset error message
+
+            const username = document.getElementById('loginUsername').value.trim();
+            const password = document.getElementById('loginPassword').value;
+            const users = JSON.parse(localStorage.getItem('users'));
+
+            const validUser = users.find(user =>
+                // Consider case-insensitive username comparison for login
+                user.username.toLowerCase() === username.toLowerCase() && user.password === password // Password check IS case-sensitive
+            );
+
+            if (!validUser) {
+                loginError.textContent = "Invalid username or password!"; // Ensure correct message
+                loginError.style.display = 'block';
+                return;
+            }
+
+            // --- SUCCESS ---
+            // 1. SET THE FLAG THAT Home.html USES
+            localStorage.setItem('waystreamLoggedIn', 'true');
+
+            // Optional: Store username for personalization later
+            localStorage.setItem('waystreamUsername', validUser.username);
+
+            // 2. Redirect to HOME.html after successful login
+            alert('Login successful! Redirecting...'); // User feedback
+            window.location.href = 'Home.html'; // Redirect to your main page
+        });
+
+         // Ensure the correct panel is shown on load (default to login)
+         document.addEventListener('DOMContentLoaded', () => {
+             showLogin(); // Ensure login form is active by default
+         });
+
+    </script>
+</body>
+</html>

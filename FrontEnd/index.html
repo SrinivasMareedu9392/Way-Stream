@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WayStream - Premium Travel Experiences</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Leaflet CSS (Optional if map is only on Map.html) -->
+    <!-- <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"> -->
+    <style>
+        :root {
+            --primary: #0848f8;
+            --primary-dark: #0639c7;
+            --secondary: #ff6b6b;
+            --light: #ffffff;
+            --dark: #222222;
+            --gray: #f5f5f5;
+            --dark-gray: #888888;
+            --transition: all 0.3s ease;
+            --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--dark);
+            line-height: 1.6;
+            background-color: var(--gray);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(rgba(110, 109, 109, 0.7), rgba(16, 16, 16, 0.7)),
+                        url('https://img.freepik.com/free-vector/realistic-travel-background-with-elements_52683-77784.jpg') no-repeat center center/cover;
+            height: 100vh;
+            color: var(--light);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        /* Navigation */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            background-color: rgba(8, 72, 248, 0.9);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+
+        .logo {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--light);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 0.5rem;
+            color: var(--secondary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center; /* Align items vertically */
+        }
+
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--secondary);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary);
+        }
+
+        /* Style for hiding elements */
+        .hidden {
+            display: none !important;
+        }
+
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--light);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 2rem;
+            /* Adjust top margin to account for fixed navbar height */
+            margin-top: 80px; /* Example height, adjust if needed */
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin-bottom: 2rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--secondary);
+            color: var(--light);
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+            border: 2px solid var(--secondary);
+        }
+
+        .cta-button:hover {
+            background-color: transparent;
+            color: var(--secondary);
+            box-shadow: var(--shadow-hover);
+            transform: translateY(-3px);
+        }
+
+        /* Main Content Sections */
+        .section {
+            padding: 6rem 5%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .section-title p {
+            color: var(--dark-gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* About Section */
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+        }
+
+        .about-img {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .about-img img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: var(--transition);
+        }
+
+        .about-img:hover img {
+            transform: scale(1.05);
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-text h3 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-dark);
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+        }
+
+        .about-features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .feature-icon {
+            background-color: var(--primary);
+            color: var(--light);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+         /* Form Styles common */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(8, 72, 248, 0.2);
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background-color: var(--primary);
+            color: var(--light);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .submit-btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: var(--light);
+            padding: 4rem 5% 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-col h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--secondary);
+        }
+
+        .footer-col p {
+            margin-bottom: 1rem;
+            opacity: 0.8;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: var(--light);
+            text-decoration: none;
+            opacity: 0.8;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+            color: var(--secondary);
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--light);
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background-color: var(--secondary);
+            transform: translateY(-3px);
+        }
+
+         /* Newsletter specific adjustments */
+        .newsletter-form .form-group {
+            margin-bottom: 1rem;
+        }
+         .newsletter-form .submit-btn {
+            width: 100%;
+            padding: 0.8rem 1.5rem;
+        }
+
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.8;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .about-content {
+                flex-direction: column;
+            }
+             .about-features {
+                 grid-template-columns: 1fr; /* Stack features on smaller tablets */
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                /* Adjust top based on actual navbar height */
+                top: 75px; /* Example: Adjust if navbar padding/height changes */
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 75px); /* Adjust height accordingly */
+                background-color: var(--primary-dark);
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 3rem;
+                gap: 2rem;
+                transition: var(--transition);
+                z-index: 999;
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+                z-index: 1001;
+            }
+
+            .hero {
+                 margin-top: 75px; /* Match navbar top offset */
+            }
+
+            .hero h1 {
+                font-size: 2.8rem; /* Slightly smaller for mobile */
+            }
+             .hero p {
+                 font-size: 1.1rem;
+            }
+
+            .section {
+                padding: 4rem 5%;
+            }
+
+             .about-content {
+                 gap: 2rem; /* Reduce gap on mobile */
+             }
+             .about-text h3 {
+                 font-size: 1.8rem;
+             }
+              .about-features {
+                 grid-template-columns: 1fr; /* Ensure stacking */
+             }
+
+             .footer-content {
+                 grid-template-columns: 1fr; /* Stack footer columns */
+                 text-align: center;
+             }
+             .footer-col h3::after {
+                 left: 50%; /* Center the underline */
+                 transform: translateX(-50%);
+             }
+             .social-links {
+                 justify-content: center; /* Center social icons */
+             }
+             .newsletter-form {
+                 max-width: 350px; /* Limit width */
+                 margin: 0 auto; /* Center form */
+             }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 1s ease forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+
+    </style>
+</head>
+<body>
+    <!-- Header with Navigation -->
+    <header>
+        <nav class="navbar">
+            <a href="index.html" class="logo">
+                <i class="fas fa-route"></i> WayStream
+            </a>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="nav-links" id="navLinks">
+                <a href="index.html">Home</a>
+                <a href="Review.html" class="protected-link">Reviews</a>
+                <a href="Map.html" class="protected-link">Map</a>
+                <a href="Contact.html" class="protected-link">Contact</a>
+
+                <!-- These links will be shown/hidden by JavaScript -->
+                <a href="Register.html" class="login-btn" id="loginLink">Login/Register</a>
+                <a href="index.html" class="login-btn hidden" id="logoutLink">Logout</a>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1 class="fade-in">Discover Your Next Adventure</h1>
+            <p class="fade-in delay-1">Explore the world's most breathtaking destinations with our expert travel guides and curated experiences.</p>
+            <a href="#about" class="cta-button fade-in delay-2">Explore Now</a>
+        </section>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- About Section -->
+        <section class="section" id="about">
+            <div class="section-title fade-in">
+                <h2>About WayStream</h2>
+                <p>We are dedicated to providing unforgettable travel experiences tailored to your preferences.</p>
+            </div>
+            <div class="about-content fade-in delay-1">
+                <div class="about-img">
+                    <img src="https://images.unsplash.com/photo-1506929562872-bb421503ef21?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1368&q=80" alt="Travel Team">
+                </div>
+                <div class="about-text">
+                    <h3>Our Story</h3>
+                    <p>Founded in 2015, WayStream began as a small team of travel enthusiasts with a passion for sharing the world's wonders. Today, we've grown into a global community of explorers, offering handcrafted journeys to over 50 countries.</p>
+                    <p>Our mission is to connect people with authentic travel experiences that inspire, educate, and create lasting memories.</p>
+                    <div class="about-features">
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-globe-americas"></i>
+                            </div>
+                            <div>
+                                <h4>Global Network</h4>
+                                <p>50+ countries and counting</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div>
+                                <h4>Expert Guides</h4>
+                                <p>Local specialists</p> <!-- Shortened for space -->
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-award"></i>
+                            </div>
+                            <div>
+                                <h4>Award Winning</h4>
+                                <p>Recognized for excellence</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <div>
+                                <h4>Sustainable</h4>
+                                <p>Eco-friendly travel</p> <!-- Shortened -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Placeholder Sections -->
+        <section class="section" id="placeholder-destinations">
+             <div class="section-title fade-in">
+                 <h2>Popular Destinations</h2>
+                 <p>Explore curated destinations (Map page requires login).</p>
+                 <!-- Add some destination card examples if desired -->
+             </div>
+        </section>
+
+         <section class="section" id="placeholder-testimonials">
+             <div class="section-title fade-in">
+                 <h2>What Our Travelers Say</h2>
+                 <p>Read reviews from our happy clients (Reviews page requires login).</p>
+                 <!-- Add some testimonial card examples if desired -->
+             </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-col">
+                <h3>WayStream</h3>
+                <p>Creating unforgettable travel experiences since 2015. Curated journeys connecting you to the heart of each destination.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="Home.html">Home</a></li>
+                    <li><a href="Review.html" class="protected-link">Reviews</a></li>
+                    <li><a href="Map.html" class="protected-link">Map</a></li>
+                    <li><a href="Contact.html" class="protected-link">Contact</a></li>
+                     <!-- Optionally add Login/Register/Logout here too, controlled by JS -->
+                     <li><a href="Login.html" id="footerLoginLink">Login</a></li>
+                     <li><a href="Register.html" id="footerRegisterLink">Register</a></li>
+                     <li><a href="#" class="hidden" id="footerLogoutLink">Logout</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Newsletter</h3>
+                <p>Subscribe for travel inspiration and offers.</p>
+                <form class="newsletter-form" id="newsletterForm">
+                    <div class="form-group">
+                         <label for="newsletterEmail" class="hidden">Email Address</label> <!-- Hidden label for accessibility -->
+                        <input type="email" id="newsletterEmail" placeholder="Your Email" class="form-control" required>
+                    </div>
+                    <button type="submit" class="submit-btn">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© <span id="currentYear"></span> WayStream Travel. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <!-- Leaflet JS (Only include if map elements are actually on THIS page) -->
+    <!-- <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script> -->
+    <script>
+        // --- UI Elements ---
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinksContainer = document.getElementById('navLinks');
+
+        // Nav Links
+        const loginLink = document.getElementById('loginLink');
+        const registerLink = document.getElementById('registerLink');
+        const logoutLink = document.getElementById('logoutLink');
+
+        // Footer Links (Optional, if you want them to sync)
+        const footerLoginLink = document.getElementById('footerLoginLink');
+        const footerRegisterLink = document.getElementById('footerRegisterLink');
+        const footerLogoutLink = document.getElementById('footerLogoutLink');
+
+        // Protected Content Links/Actions
+        const protectedLinks = document.querySelectorAll('.protected-link');
+
+        // --- Core Functions ---
+
+        // Check login state
+        function isLoggedIn() {
+            return localStorage.getItem('waystreamLoggedIn') === 'true';
+        }
+
+        // Update Navigation UI (Header and Footer)
+        function updateNavUI() {
+            const loggedIn = isLoggedIn();
+
+            // Header Nav
+            loginLink?.classList.toggle('hidden', loggedIn);
+            registerLink?.classList.toggle('hidden', loggedIn);
+            logoutLink?.classList.toggle('hidden', !loggedIn);
+
+            // Footer Nav (Optional Sync)
+            footerLoginLink?.classList.toggle('hidden', loggedIn);
+            footerRegisterLink?.classList.toggle('hidden', loggedIn);
+            footerLogoutLink?.classList.toggle('hidden', !loggedIn);
+        }
+
+        // Handle clicks on protected links/actions
+        function handleProtectedAction(event, alertMessage = 'Please log in to access this feature.') {
+            if (!isLoggedIn()) {
+                event.preventDefault();
+                alert(alertMessage);
+                // Optionally, redirect to login: window.location.href = 'Login.html';
+                return false; // Action blocked
+            }
+            return true; // Action allowed
+        }
+
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            navLinksContainer.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navLinksContainer.classList.contains('active') ?
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        }
+
+        // Smooth Scrolling (Updated to check protection)
+        function smoothScrollToTarget(event) {
+             // Prevent default scroll behavior immediately
+             event.preventDefault();
+
+             // For anchor links, check protection *only* if the link has the class
+             if (this.classList.contains('protected-link')) {
+                 if (!handleProtectedAction(event, 'Please log in to view this section.')) {
+                     return; // Stop if protected and not logged in
+                 }
+             }
+
+            // Proceed with smooth scroll if allowed OR not protected
+            if (this.getAttribute('href') === '#') return;
+            const targetId = this.getAttribute('href').substring(1);
+            const targetElement = document.getElementById(targetId);
+
+            if (targetElement) {
+                // Calculate offset dynamically based on navbar height
+                 const navbarHeight = document.querySelector('.navbar')?.offsetHeight || 80; // Default fallback
+                window.scrollTo({
+                    top: targetElement.offsetTop - navbarHeight,
+                    behavior: 'smooth'
+                });
+                // Close mobile menu if open
+                if (navLinksContainer.classList.contains('active')) {
+                    toggleMobileMenu(); // Use the function to ensure icon updates
+                }
+            }
+        }
+
+        // Animation on Scroll
+        const animateOnScroll = () => {
+            const elements = document.querySelectorAll('.fade-in');
+            const screenPosition = window.innerHeight / 1.2;
+            elements.forEach(element => {
+                if (window.getComputedStyle(element).opacity === '1') return; // Skip already visible
+                const elementPosition = element.getBoundingClientRect().top;
+                if (elementPosition < screenPosition) {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        };
+
+        // --- Event Listeners ---
+
+        // Mobile Menu Button
+        if (mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+        }
+
+        // Smooth Scrolling for Anchor Links (#...)
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                 smoothScrollToTarget.call(this, e);
+             });
+        });
+
+        // Logout Link (Header and Footer)
+        [logoutLink, footerLogoutLink].forEach(link => {
+             if (link) {
+                 link.addEventListener('click', (e) => {
+                     e.preventDefault();
+                     localStorage.removeItem('waystreamLoggedIn'); // Log out
+                     alert('You have been logged out.');
+                     window.location.reload(); // Reload to reflect changes
+                 });
+             }
+         });
+
+
+        // Protected Links (Check login on click)
+        protectedLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                handleProtectedAction(e);
+            });
+        });
+
+        // Newsletter Form (Example of potentially protected form)
+        const newsletterForm = document.getElementById('newsletterForm');
+        if (newsletterForm) {
+             newsletterForm.addEventListener('submit', (e) => {
+                 e.preventDefault(); // Always prevent default for client-side handling
+                  // Decide if subscription requires login
+                 // if (!handleProtectedAction(e, 'Please login to subscribe.')) {
+                 //     return; // Stop if login required and user isn't logged in
+                 // }
+
+                 // --- Handle Subscription (Simulated) ---
+                 alert('Thank you for subscribing! (Simulated)');
+                 newsletterForm.reset();
+                 // --- End Simulation ---
+             });
+        }
+
+        // Dynamic Year in Footer
+        const currentYearSpan = document.getElementById('currentYear');
+        if (currentYearSpan) {
+            currentYearSpan.textContent = new Date().getFullYear();
+        }
+
+        // --- Run on Page Load ---
+        document.addEventListener('DOMContentLoaded', () => {
+            updateNavUI();      // Set initial Nav bar state
+            animateOnScroll();  // Initial animation check
+        });
+
+        // Re-check animations on scroll
+        window.addEventListener('scroll', animateOnScroll);
+
+    </script>
+</body>
+</html>
