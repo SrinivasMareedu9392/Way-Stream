@@ -181,7 +181,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // Perform logout actions (e.g., clearing session storage or cookies)
             sessionStorage.clear(); // Clear session storage
-            localStorage.clear();  // Clear local storage if needed
 
             // Redirect to index.html
             window.location.href = "index.html";
