@@ -168,3 +168,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Removed logout button functionalities
 });
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const loginLink = document.getElementById("loginLink");
+    const logoutLink = document.getElementById("logoutLink");
+
+    // Add logout functionality
+    if (logoutLink) {
+        logoutLink.addEventListener("click", (e) => {
+            e.preventDefault(); // Prevent default link behavior
+            window.location.href = "index.html"; // Redirect to index.html
+        });
+    }
+});
