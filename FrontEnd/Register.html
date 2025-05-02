@@ -295,6 +295,10 @@
         if (!localStorage.getItem('users')) {
             localStorage.setItem('users', JSON.stringify([]));
         }
+        window.onload = function() {
+            window.scrollTo(0, 0); // Scroll to top-left corner
+        };
+
 
         function showRegister() {
             loginError.style.display = 'none';
