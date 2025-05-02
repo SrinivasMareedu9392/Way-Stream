@@ -238,8 +238,71 @@
             animation: spin 1s linear infinite;
         }
 
+        /* AI Place Analyzer */
+        .ai-tools-container {
+            background: var(--light);
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            max-width: 600px;
+            margin: 2rem auto;
+            animation: fadeIn 0.6s ease;
+        }
+
+        .ai-tools-container h3 {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.5rem;
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .ai-tools-container h3 i {
+            margin-right: 0.5rem;
+            color: var(--primary);
+        }
+
+        .ai-tools-container p {
+            font-size: 1rem;
+            color: var(--dark-gray);
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .ai-analyze-btn {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--light);
+            border: none;
+            border-radius: 8px;
+            padding: 0.9rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .ai-analyze-btn:hover {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .ai-analyze-btn:disabled {
+            background: var(--dark-gray);
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+
         @keyframes spin {
-            to { transform: translate(-50%, -50%) rotate(360deg); }
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         /* Map Container and Nearby Places */
@@ -563,7 +626,8 @@
                 height: 70vh;
             }
 
-            .search-controls-outside {
+            .search-controls-outside,
+            .ai-tools-container {
                 padding: 1.5rem;
             }
 
@@ -667,6 +731,15 @@
             <div class="distance-display" id="distanceDisplay">
                 <p>Distance and Time <br> <span id="distanceValue">N/A</span></p>
             </div>
+
+            <!-- AI Place Analyzer -->
+            <div class="ai-tools-container">
+                <h3><i class="fas fa-robot"></i> AI Trip Analyzer</h3>
+                <p>Analyze your trip based on the start and destination locations above.</p>
+                <button type="button" class="ai-analyze-btn" id="aiAnalyzeBtn">
+                    <i class="fas fa-search-location"></i> Analyze Trip
+                </button>
+            </div>
         </section>
     </main>
 
@@ -712,7 +785,8 @@
 
     <!-- Google Maps API -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCQ8njadJwk5j3mMOh1CwKiXbho7zmsJ5A&libraries=places"></script>
-    
+    <!-- External Analysis Script -->
+    <script src="Mscript.js"></script>
     <!-- Main Script -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -835,9 +909,14 @@
             }
             
             // Function to calculate and display route
-            function calculateAndDisplayRoute(start, destination) {
+            function calculateAndDisplayRoute() {
                 const startInput = document.getElementById('start-input').value.trim();
                 const destinationInput = document.getElementById('destination-input').value.trim();
+                
+                if (!startInput || !destinationInput) {
+                    alert('Please enter both start and destination locations.');
+                    return;
+                }
                 
                 const btn = document.getElementById('getDirectionsBtn');
                 btn.classList.add('loading');
@@ -874,7 +953,9 @@
                         
                         // Show nearby places
                         showNearbyPlaces(route.end_location);
-                    } 
+                    } else {
+                        alert('Unable to find a route. Please check your locations and try again.');
+                    }
                     btn.classList.remove('loading');
                     btn.disabled = false;
                 });
@@ -923,6 +1004,33 @@
                 calculateAndDisplayRoute();
             });
             
+            // AI Trip Analyzer
+            async function handleAiAnalyzeClick() {
+                const start = document.getElementById('start-input').value.trim();
+                const destination = document.getElementById('destination-input').value.trim();
+                
+                if (!start || !destination) {
+                    alert('Please enter both start and destination locations above.');
+                    return;
+                }
+
+                const aiAnalyzeBtn = document.getElementById('aiAnalyzeBtn');
+                aiAnalyzeBtn.disabled = true;
+
+                try {
+                    // Call external script function
+                    if (typeof handleAnalyzePlace === 'function') {
+                        await handleAnalyzePlace(start, destination);
+                    } else {
+                        throw new Error('Analysis function not found. Please ensure Mscript.js is loaded correctly.');
+                    }
+                } catch (error) {
+                    alert(`Error: ${error.message}`);
+                } finally {
+                    aiAnalyzeBtn.disabled = false;
+                }
+            }
+            
             // Login/logout functionality
             function isLoggedIn() {
                 return localStorage.getItem('waystreamLoggedIn') === 'true';
@@ -942,6 +1050,7 @@
                 localStorage.removeItem('waystreamLoggedIn');
                 localStorage.removeItem('waystreamUsername');
                 alert('You have been logged out.');
+                updateNavUI();
                 window.location.href = 'index.html';
             });
             
@@ -974,8 +1083,8 @@
             animateOnScroll();
             window.addEventListener('scroll', animateOnScroll);
             
-            // Calculate initial route with default values
-            calculateAndDisplayRoute();
+            // Initialize AI Trip Analyzer
+            document.getElementById('aiAnalyzeBtn').addEventListener('click', handleAiAnalyzeClick);
         });
     </script>
 </body>
