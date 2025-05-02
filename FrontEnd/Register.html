@@ -3,55 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WayStream - Login/Register</title> <!-- Updated Title -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-<style>
+    <meta name="description" content="Login or register to access WayStream's interactive travel planning features.">
+    <title>WayStream - Login & Register</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        :root {
+            --primary: #1a3c87; /* Deep blue from WayStream brand */
+            --primary-dark: #152e6e;
+            --secondary: #f4a261; /* Warm accent */
+            --accent: #2a9d8f; /* Teal for highlights */
+            --light: #ffffff;
+            --dark: #1a1a1a;
+            --gray: #f8f9fa;
+            --dark-gray: #6b7280;
+            --error: #ef4444;
+            --error-bg: rgba(239, 68, 68, 0.1);
+            --transition: all 0.3s ease;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --shadow-hover: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
-            background: linear-gradient(135deg, #0f172a, #1e293b);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
             min-height: 100vh;
-            overflow-x: hidden;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding-top: 2rem;
+            justify-content: center;
+            padding: 2rem;
+            color: var(--light);
+            overflow-x: hidden;
         }
 
-        .header {
+        header {
             text-align: center;
-            padding: 0 1rem 2rem 1rem;
-            color: #fff;
-            animation: fadeDown 1s ease;
-            width: 100%;
+            margin-bottom: 2rem;
+            animation: fadeDown 0.8s ease;
         }
 
-        .header h1 {
-            font-size: 3rem;
-            letter-spacing: 3px;
-            background: linear-gradient(45deg, #38bdf8, #60a5fa);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
+        header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--light);
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        header h1 i {
+            color: var(--secondary);
+            font-size: 2rem;
         }
 
         .form-container {
-            background: rgba(30, 41, 59, 0.7);
-            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.95);
             padding: 2.5rem;
-            border-radius: 20px;
-            box-shadow: 0 8px 32px rgba(2, 132, 199, 0.15);
-            width: 90%;
-            max-width: 400px;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            width: 100%;
+            max-width: 420px;
             position: relative;
             overflow: hidden;
-            margin-bottom: 2rem;
-            border: 1px solid rgba(56, 189, 248, 0.1);
+            animation: slideUp 0.6s ease forwards;
         }
 
         .form-group {
@@ -61,100 +84,100 @@
 
         .form-group input {
             width: 100%;
-            padding: 1rem;
-            background: rgba(15, 23, 42, 0.5);
-            border: 1px solid rgba(56, 189, 248, 0.1);
+            padding: 0.9rem 1rem;
+            border: 1px solid #e5e7eb;
             border-radius: 8px;
-            color: #f8fafc;
             font-size: 1rem;
-            transition: all 0.3s ease;
-            padding-right: 3rem;
+            color: var(--dark);
+            background: var(--gray);
+            transition: var(--transition);
         }
 
         .form-group input:focus {
             outline: none;
-            background: rgba(15, 23, 42, 0.8);
-            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.3);
-            border-color: rgba(56, 189, 248, 0.4);
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(26, 60, 135, 0.1);
+            background: var(--light);
         }
 
         .form-group label {
             position: absolute;
             left: 1rem;
-            top: 1rem;
-            color: rgba(203, 213, 225, 0.7);
+            top: 0.9rem;
+            color: var(--dark-gray);
+            font-size: 1rem;
             pointer-events: none;
-            transition: all 0.3s ease;
+            transition: var(--transition);
         }
 
         .form-group input:focus ~ label,
         .form-group input:not(:placeholder-shown) ~ label {
-            top: -12px;
-            left: 5px;
+            top: -0.6rem;
+            left: 0.75rem;
             font-size: 0.75rem;
-            color: #38bdf8;
-            background-color: #0f172a;
-            padding: 0 5px;
-            border-radius: 3px;
+            color: var(--primary);
+            background: var(--light);
+            padding: 0 0.25rem;
         }
 
-        .icon {
+        .form-group .icon {
             position: absolute;
             right: 1rem;
             top: 50%;
             transform: translateY(-50%);
-            color: rgba(203, 213, 225, 0.7);
-            pointer-events: none;
+            color: var(--dark-gray);
+            font-size: 1.1rem;
         }
 
         .btn {
             width: 100%;
-            padding: 1rem;
-            background: linear-gradient(45deg, #3b82f6, #60a5fa);
+            padding: 0.9rem;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             border: none;
             border-radius: 8px;
-            color: #fff;
+            color: var(--light);
             font-size: 1rem;
-            font-weight: bold;
+            font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: var(--transition);
         }
 
         .btn:hover {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.4);
-            background: linear-gradient(45deg, #2563eb, #3b82f6);
+            box-shadow: var(--shadow-hover);
         }
 
         .toggle-form {
             text-align: center;
             margin-top: 1.5rem;
-            color: rgba(203, 213, 225, 0.7);
             font-size: 0.9rem;
+            color: var(--dark-gray);
         }
 
         .toggle-form a {
-            color: #38bdf8;
-            cursor: pointer;
+            color: var(--primary);
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 600;
+            transition: var(--transition);
         }
+
         .toggle-form a:hover {
-             text-decoration: underline;
-             color: #60a5fa;
+            color: var(--primary-dark);
+            text-decoration: underline;
         }
 
         .error-message {
-            color: #fca5a5;
-            background-color: rgba(220, 38, 38, 0.1);
-            border: 1px solid rgba(220, 38, 38, 0.3);
+            background: var(--error-bg);
+            color: var(--error);
             padding: 0.75rem;
-            border-radius: 5px;
+            border-radius: 6px;
             text-align: center;
             margin-bottom: 1rem;
+            font-size: 0.85rem;
+            border: 1px solid rgba(239, 68, 68, 0.2);
             display: none;
             animation: shake 0.4s ease;
-            font-size: 0.9rem;
         }
 
         @keyframes fadeDown {
@@ -162,15 +185,20 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         @keyframes shake {
             0%, 100% { transform: translateX(0); }
-            25%, 75% { transform: translateX(-8px); }
-            50% { transform: translateX(8px); }
+            25%, 75% { transform: translateX(-4px); }
+            50% { transform: translateX(4px); }
         }
 
         .panel {
             display: none;
-            animation: slideIn 0.6s ease forwards;
+            animation: slideIn 0.5s ease forwards;
         }
 
         .panel.active {
@@ -178,78 +206,84 @@
         }
 
         @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateX(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
         }
 
         @media (max-width: 480px) {
-            .header h1 {
-                 font-size: 2.5rem;
+            header h1 {
+                font-size: 2rem;
             }
+
+            header h1 i {
+                font-size: 1.8rem;
+            }
+
             .form-container {
-                width: 90%;
                 padding: 2rem;
+                width: 95%;
             }
-            .form-group input:focus ~ label,
-            .form-group input:not(:placeholder-shown) ~ label {
-                 top: -10px;
+
+            .form-group input {
+                padding: 0.8rem;
+            }
+
+            .btn {
+                padding: 0.8rem;
             }
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>WayStream</h1>
-    </div>
+    <header>
+        <h1><i class="fas fa-route"></i> WayStream</h1>
+    </header>
 
-    <!-- Container no longer needed for centering -->
-    <div class="form-container">
-        <!-- Login Form -->
-        <!-- Removed action attribute as JS handles submission -->
-        <form id="loginForm" class="panel active">
-            <div class="error-message" id="loginError">Invalid username or password!</div>
-            <div class="form-group">
-                <!-- Added placeholder attribute for better UX with floating labels -->
-                <input type="text" id="loginUsername" required placeholder=" ">
-                <label for="loginUsername">Username</label>
-                <i class="fas fa-user icon"></i>
-            </div>
-            <div class="form-group">
-                <input type="password" id="loginPassword" required placeholder=" ">
-                <label for="loginPassword">Password</label>
-                <i class="fas fa-lock icon"></i>
-            </div>
-            <button type="submit" class="btn">Login</button>
-            <div class="toggle-form">
-                Don't have an account? <a onclick="showRegister()">Register</a>
-            </div>
-        </form>
+    <main>
+        <section class="form-container" aria-labelledby="auth-heading">
+            <h2 id="auth-heading" class="sr-only">Login or Register</h2>
 
-        <!-- Register Form -->
-        <form id="registerForm" class="panel">
-            <div class="error-message" id="registerError">Username already exists!</div>
-            <div class="form-group">
-                <input type="text" id="registerUsername" required placeholder=" ">
-                <label for="registerUsername">Choose Username</label>
-                <i class="fas fa-user icon"></i>
-            </div>
-            <div class="form-group">
-                <input type="password" id="registerPassword" required placeholder=" ">
-                <label for="registerPassword">Create Password</label>
-                <i class="fas fa-lock icon"></i>
-            </div>
-            <button type="submit" class="btn">Register</button>
-            <div class="toggle-form">
-                Already have an account? <a onclick="showLogin()">Login</a>
-            </div>
-        </form>
-    </div>
+            <!-- Login Form -->
+            <form id="loginForm" class="panel active" aria-labelledby="login-heading">
+                <h3 id="login-heading" class="sr-only">Login</h3>
+                <div class="error-message" id="loginError" role="alert">Invalid username or password!</div>
+                <div class="form-group">
+                    <input type="text" id="loginUsername" name="loginUsername" required placeholder=" " aria-label="Username">
+                    <label for="loginUsername">Username</label>
+                    <i class="fas fa-user icon" aria-hidden="true"></i>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="loginPassword" name="loginPassword" required placeholder=" " aria-label="Password">
+                    <label for="loginPassword">Password</label>
+                    <i class="fas fa-lock icon" aria-hidden="true"></i>
+                </div>
+                <button type="submit" class="btn">Login</button>
+                <div class="toggle-form">
+                    Don't have an account? <a href="#register" onclick="showRegister()">Register</a>
+                </div>
+            </form>
+
+            <!-- Register Form -->
+            <form id="registerForm" class="panel" aria-labelledby="register-heading">
+                <h3 id="register-heading" class="sr-only">Register</h3>
+                <div class="error-message" id="registerError" role="alert">Username already exists!</div>
+                <div class="form-group">
+                    <input type="text" id="registerUsername" name="registerUsername" required placeholder=" " aria-label="Choose Username">
+                    <label for="registerUsername">Choose Username</label>
+                    <i class="fas fa-user icon" aria-hidden="true"></i>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="registerPassword" name="registerPassword" required placeholder=" " aria-label="Create Password">
+                    <label for="registerPassword">Create Password</label>
+                    <i class="fas fa-lock icon" aria-hidden="true"></i>
+                </div>
+                <button type="submit" class="btn">Register</button>
+                <div class="toggle-form">
+                    Already have an account? <a href="#login" onclick="showLogin()">Login</a>
+                </div>
+            </form>
+        </section>
+    </main>
 
     <script>
         const loginForm = document.getElementById('loginForm');
@@ -263,91 +297,84 @@
         }
 
         function showRegister() {
-            loginError.style.display = 'none'; // Hide login error when switching
+            loginError.style.display = 'none';
             registerForm.classList.add('active');
             loginForm.classList.remove('active');
+            document.getElementById('registerUsername').focus();
         }
 
         function showLogin() {
-            registerError.style.display = 'none'; // Hide register error when switching
+            registerError.style.display = 'none';
             loginForm.classList.add('active');
             registerForm.classList.remove('active');
+            document.getElementById('loginUsername').focus();
         }
 
         // Handle Registration
         registerForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            registerError.style.display = 'none'; // Reset error message
+            registerError.style.display = 'none';
 
-            const username = document.getElementById('registerUsername').value.trim(); // Trim whitespace
+            const username = document.getElementById('registerUsername').value.trim();
             const password = document.getElementById('registerPassword').value;
             const users = JSON.parse(localStorage.getItem('users'));
 
-            // Basic validation (add more as needed)
             if (!username || !password) {
-                 registerError.textContent = "Username and password cannot be empty.";
-                 registerError.style.display = 'block';
-                 return;
+                registerError.textContent = "Username and password cannot be empty.";
+                registerError.style.display = 'block';
+                return;
             }
-             if (password.length < 4) { // Example: Minimum password length
-                 registerError.textContent = "Password must be at least 4 characters.";
-                 registerError.style.display = 'block';
-                 return;
+            if (password.length < 4) {
+                registerError.textContent = "Password must be at least 4 characters.";
+                registerError.style.display = 'block';
+                return;
             }
 
-            if (users.some(user => user.username.toLowerCase() === username.toLowerCase())) { // Case-insensitive check
+            if (users.some(user => user.username.toLowerCase() === username.toLowerCase())) {
                 registerError.textContent = "Username already exists!";
                 registerError.style.display = 'block';
                 return;
             }
 
-            // Add new user
-            users.push({ username, password }); // In a real app, hash the password here!
+            users.push({ username, password });
             localStorage.setItem('users', JSON.stringify(users));
 
-            alert('Registration successful! Please log in.'); // User feedback
-            document.getElementById('registerUsername').value = ''; // Clear fields
+            alert('Registration successful! Please log in.');
+            document.getElementById('registerUsername').value = '';
             document.getElementById('registerPassword').value = '';
-            showLogin(); // Switch to login form
+            showLogin();
         });
 
         // Handle Login
         loginForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            loginError.style.display = 'none'; // Reset error message
+            loginError.style.display = 'none';
 
             const username = document.getElementById('loginUsername').value.trim();
             const password = document.getElementById('loginPassword').value;
             const users = JSON.parse(localStorage.getItem('users'));
 
             const validUser = users.find(user =>
-                // Consider case-insensitive username comparison for login
-                user.username.toLowerCase() === username.toLowerCase() && user.password === password // Password check IS case-sensitive
+                user.username.toLowerCase() === username.toLowerCase() && user.password === password
             );
 
             if (!validUser) {
-                loginError.textContent = "Invalid username or password!"; // Ensure correct message
+                loginError.textContent = "Invalid username or password!";
                 loginError.style.display = 'block';
                 return;
             }
 
-            // --- SUCCESS ---
-            // 1. SET THE FLAG THAT Home.html USES
             localStorage.setItem('waystreamLoggedIn', 'true');
-
-            // Optional: Store username for personalization later
             localStorage.setItem('waystreamUsername', validUser.username);
 
-            // 2. Redirect to HOME.html after successful login
-            alert('Login successful! Redirecting...'); // User feedback
-            window.location.href = 'index.html'; // Redirect to your main page
+            alert('Login successful! Redirecting...');
+            window.location.href = 'index.html';
         });
 
-         // Ensure the correct panel is shown on load (default to login)
-         document.addEventListener('DOMContentLoaded', () => {
-             showLogin(); // Ensure login form is active by default
-         });
-
+        // Ensure the correct panel is shown on load
+        document.addEventListener('DOMContentLoaded', () => {
+            showLogin();
+        });
     </script>
 </body>
 </html>
