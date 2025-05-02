@@ -179,11 +179,14 @@ document.addEventListener("DOMContentLoaded", () => {
         logoutLink.addEventListener("click", (e) => {
             e.preventDefault(); // Prevent default link behavior
 
-            // Perform logout actions (e.g., clearing session storage or cookies)
-            sessionStorage.clear(); // Clear session storage
+           // Perform logout actions
+        localStorage.removeItem('waystreamLoggedIn');
 
-            // Redirect to index.html
-            window.location.href = "index.html";
+        // Update the navigation UI
+        updateNavUI();
+
+        // Redirect to index.html
+        window.location.href = "index.html";
         });
     }
 });
