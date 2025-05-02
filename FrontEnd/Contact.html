@@ -638,6 +638,9 @@
             footerRegisterLink?.classList.toggle('hidden', loggedIn);
             footerLogoutLink?.classList.toggle('hidden', !loggedIn);
         }
+        window.onload = function() {
+            window.scrollTo(0, 0); // Scroll to top-left corner
+        };
 
         function handleProtectedAction(event, alertMessage = 'Please log in to access this feature.') {
             if (!isLoggedIn()) {
