@@ -3,90 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Read and share traveler reviews on WayStream. Analyze destinations with AI tools and discover authentic travel experiences.">
     <title>WayStream - Traveler Reviews & Analysis</title>
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- External CSS (If you have one) -->
-    <!-- <link rel="stylesheet" href="Rstyle.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* --- Root Variables (Keep original Review page variables) --- */
         :root {
-            --primary: #0848f8;
-            --primary-dark: #0639c7;
-            --secondary: #ff6b6b;
-            --success: #28a745;
-            --warning: #ffc107;
-            --info: #17a2b8;
+            --primary: #1a3c87;
+            --primary-dark: #152e6e;
+            --secondary: #f4a261;
+            --accent: #2a9d8f;
             --light: #ffffff;
-            --dark: #222222;
-            --gray: #f5f5f5;
-            --dark-gray: #888888;
+            --dark: #1a1a1a;
+            --gray: #f8f9fa;
+            --dark-gray: #6b7280;
+            --error: #ef4444;
+            --error-bg: rgba(239, 68, 68, 0.1);
             --transition: all 0.3s ease;
-            --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            --shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.2);
-            /* Navbar height matching the *original* Review page style */
-            --navbar-height: 90px;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --shadow-hover: 0 6px 20px rgba(0, 0, 0, 0.15);
+            --navbar-height: 80px;
             --navbar-height-mobile: 70px;
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Poppins', sans-serif;
-            color: var(--dark);
-            line-height: 1.6;
-            background-color: var(--gray);
-            overflow-x: hidden;
-            /* Add padding-top based on Review page navbar height */
-            padding-top: var(--navbar-height);
-        }
-        h1, h2, h3, h4 { font-family: 'Playfair Display', serif; font-weight: 600; }
 
-        /* --- Navbar Styles (Keep original Review page navbar styles) --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--dark);
+            line-height: 1.7;
+            background: var(--gray);
+            padding-top: var(--navbar-height);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+
+        /* Navbar */
         .navbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1.5rem 5%; /* Original padding */
-            background-color: rgba(8, 72, 248, 0.95); /* Original blue background */
-            position: fixed; /* Important: Keep fixed */
+            padding: 1.2rem 5%;
+            background: rgba(26, 60, 135, 0.95);
+            position: fixed;
             width: 100%;
             top: 0;
-            left: 0;
             z-index: 1000;
             box-shadow: var(--shadow);
-            height: var(--navbar-height); /* Use variable */
+            backdrop-filter: blur(5px);
         }
 
-        /* --- Logo Style (Keep original Review page logo styles) --- */
         .logo {
-            font-size: 2rem; /* Original size */
+            font-size: 2rem;
             font-weight: 700;
             color: var(--light);
             text-decoration: none;
             display: flex;
             align-items: center;
         }
+
         .logo i {
-            margin-right: 0.6rem; /* Original margin */
+            margin-right: 0.6rem;
             color: var(--secondary);
+            font-size: 1.8rem;
         }
 
-        /* --- Nav Links Styles (Keep original Review page styles, adjust gap if needed) --- */
         .nav-links {
             display: flex;
-            gap: 1.8rem; /* Original gap */
+            gap: 2.5rem;
             align-items: center;
         }
+
         .nav-links a {
             color: var(--light);
             text-decoration: none;
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
             transition: var(--transition);
             position: relative;
             padding: 0.5rem 0;
         }
+
         .nav-links a::after {
             content: '';
             position: absolute;
@@ -97,149 +105,646 @@
             background-color: var(--secondary);
             transition: var(--transition);
         }
-        .nav-links a:hover::after { width: 100%; }
-        .nav-links a:hover { color: var(--secondary); }
 
-        /* --- Hidden Class --- */
-        .hidden { display: none !important; }
+        .nav-links a:hover::after {
+            width: 100%;
+        }
 
-        /* --- Mobile Menu Button (Keep original Review page style) --- */
+        .nav-links a:hover {
+            color: var(--secondary);
+            transform: translateY(-2px);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
         .mobile-menu-btn {
             display: none;
             background: none;
             border: none;
             color: var(--light);
-            font-size: 1.6rem; /* Original size */
+            font-size: 1.8rem;
             cursor: pointer;
         }
 
-        /* Hero Section (Keep original Review page hero) */
-        .reviews-hero {
-            background: linear-gradient(rgba(8, 72, 248, 0.85), rgba(8, 72, 248, 0.75)), url('https://images.unsplash.com/photo-1522198732290-44dab8548729?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyMDkyMnwwfDF8c2VhcmNofDIwfHx0cmF2ZWwlMjByZXZpZXdzfGVufDB8fHx8MTY3ODE3NTg1MA&ixlib=rb-4.0.3&q=80&w=1080') no-repeat center center/cover;
-            height: 40vh;
-            color: var(--light);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+        /* Main Content */
+        .section {
+            padding: 5rem 5%;
+            background: rgba(255, 255, 255, 0.95);
+            margin: 3rem auto;
+            border-radius: 15px;
+            max-width: 1200px;
+            box-shadow: var(--shadow);
+        }
+
+        .section-title {
             text-align: center;
-            padding: 0 2rem;
+            margin-bottom: 3.5rem;
         }
-        .reviews-hero h1 { font-size: 3rem; margin-bottom: 1rem; text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6); }
-        .reviews-hero p { font-size: 1.1rem; max-width: 600px; }
 
-        /* Main Content Styles (Keep original Review page styles) */
-        .section { padding: 4rem 5%; }
-        .section-title { text-align: center; margin-bottom: 3rem; }
-        .section-title h2 { font-size: 2.5rem; color: var(--primary); margin-bottom: 0.5rem; }
-        .section-title p { color: var(--dark-gray); max-width: 700px; margin: 0 auto; }
-        .form-group { margin-bottom: 1.5rem; }
-        .form-group label { font-weight: 500; color: var(--dark); margin-bottom: 0.5rem; display: block; }
-        .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 12px 15px; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem; font-family: 'Poppins', sans-serif; transition: var(--transition); }
-        .form-group input:focus, .form-group textarea:focus, .form-group select:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(8, 72, 248, 0.2); }
-        .form-group textarea { min-height: 120px; resize: vertical; }
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 0.8rem;
+        }
+
+        .section-title p {
+            font-size: 1.1rem;
+            color: var(--dark-gray);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Featured Places */
+        .featured-places {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .place-card {
+            background: var(--light);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            animation: slideUp 0.6s ease forwards;
+        }
+
+        .place-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .place-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .place-card-content {
+            padding: 1.5rem;
+        }
+
+        .place-card h4 {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            color: var(--primary-dark);
+        }
+
+        .place-card p {
+            font-size: 0.95rem;
+            color: var(--dark-gray);
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .place-card .explore-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--light);
+            padding: 0.8rem 1.2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .place-card .explore-btn:hover {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        /* Form Containers */
         .ai-tools-container,
-        .review-form-container { background-color: var(--light); padding: 2.5rem; border-radius: 10px; box-shadow: var(--shadow); max-width: 800px; margin: 0 auto 3rem; }
-        .ai-tools-container h3,
-        .review-form-container h3 { color: var(--primary-dark); margin-bottom: 2rem; text-align: center; font-size: 1.8rem; }
-        .ai-tools-container h3 i,
-        .review-form-container h3 i { margin-right: 0.5rem; color: var(--primary); }
-        .ai-tools-container { margin-bottom: 3rem; }
-        .ai-analyze-btn { background-color: var(--secondary); color: var(--light); border: none; border-radius: 5px; padding: 10px 20px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: var(--transition); width: 100%; margin-top: 0.5rem; display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; }
-        .ai-analyze-btn:hover { background-color: #e65c5c; box-shadow: var(--shadow); }
-        .ai-analyze-btn:disabled { background-color: var(--dark-gray); cursor: not-allowed; box-shadow: none; transform: none; }
-        .ai-analyze-btn i { font-size: 0.9em; }
-        .preferences-container { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 0.5rem; }
-        .preferences-container input[type="checkbox"] { position: absolute; opacity: 0; pointer-events: none; }
-        .preferences-container label { display: inline-flex; align-items: center; background-color: var(--gray); border: 1px solid #ddd; border-radius: 20px; padding: 0.5rem 1rem; cursor: pointer; transition: var(--transition); font-size: 0.9rem; color: var(--dark-gray); }
-        .preferences-container label::before { content: ''; display: inline-block; width: 14px; height: 14px; border: 1px solid var(--dark-gray); border-radius: 3px; margin-right: 0.5rem; transition: var(--transition); background-color: var(--light); }
-        .preferences-container label:hover { background-color: #e9e9e9; border-color: var(--primary); }
-        .preferences-container input[type="checkbox"]:checked + label { background-color: var(--primary); color: var(--light); border-color: var(--primary-dark); }
-        .preferences-container input[type="checkbox"]:checked + label::before { background-color: var(--light); border-color: var(--light); background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%230848f8'%3e%3cpath d='M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425z'/%3e%3c/svg%3e"); background-size: contain; background-repeat: no-repeat; background-position: center; }
-        .preferences-container input[type="checkbox"]:focus + label { box-shadow: 0 0 0 2px var(--primary); }
-        .submit-btn { background-color: var(--primary); color: var(--light); border: none; border-radius: 5px; padding: 12px 25px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: var(--transition); width: 100%; margin-top: 1rem; }
-        .submit-btn:hover { background-color: var(--primary-dark); transform: translateY(-2px); box-shadow: var(--shadow); }
-        .reviews-container { max-width: 800px; margin: 3rem auto 0; }
-        .reviews-container h3 { text-align: center; margin-bottom: 2rem; font-size: 1.8rem; color: var(--primary-dark); }
-        .review-card { background-color: var(--light); border-radius: 10px; padding: 1.5rem 2rem; margin-bottom: 1.5rem; box-shadow: var(--shadow); position: relative; border-left: 5px solid var(--primary); opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease; }
-        .review-card.visible { opacity: 1; transform: translateY(0); }
-        .review-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem; }
-        .review-author { font-weight: 600; color: var(--primary-dark); font-size: 1.1rem; }
-        .review-location { color: var(--dark-gray); font-size: 0.9rem; margin-top: 0.2rem; }
-        .review-rating { color: #ffc107; font-size: 1.1rem; white-space: nowrap; }
-        .review-content { line-height: 1.7; margin-bottom: 1rem; white-space: pre-wrap; }
-        .review-preferences { font-size: 0.9rem; color: var(--dark); margin-bottom: 1rem; padding-top: 0.5rem; border-top: 1px dashed #eee; }
-        .review-preferences strong { color: var(--primary-dark); }
-        .review-date { color: var(--dark-gray); font-size: 0.8rem; text-align: right; margin-top: 1rem; }
-        .no-reviews { text-align: center; color: var(--dark-gray); padding: 2rem; background-color: #fff; border-radius: 10px; border: 1px dashed #ddd; }
-        .review-actions { display: flex; justify-content: flex-end; align-items: center; gap: 0.75rem; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #eee; }
-        .action-btn { background: none; border: 1px solid transparent; border-radius: 5px; padding: 0.4rem 0.8rem; font-size: 0.85rem; cursor: pointer; transition: var(--transition); display: inline-flex; align-items: center; gap: 0.4rem; }
-        .action-btn i { font-size: 0.9em; }
-        .delete-review-btn { color: var(--secondary); border-color: var(--secondary); }
-        .delete-review-btn:hover { background-color: rgba(255, 107, 107, 0.1); color: #cc0000; }
-        .delete-review-btn:disabled { color: var(--dark-gray); border-color: #ccc; cursor: not-allowed; }
-        .delete-review-btn:disabled:hover { background-color: transparent; }
-
-        /* Footer Styles (Keep original Review page footer styles) */
-        footer { background-color: var(--dark); color: var(--light); padding: 4rem 5% 2rem; margin-top: 4rem; }
-        .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem; margin-bottom: 3rem; }
-        .footer-col h3 { font-size: 1.5rem; margin-bottom: 1.5rem; position: relative; padding-bottom: 0.5rem; }
-        .footer-col h3::after { content: ''; position: absolute; bottom: 0; left: 0; width: 50px; height: 2px; background-color: var(--secondary); }
-        .footer-col p { margin-bottom: 1rem; opacity: 0.8; }
-        .footer-links li { margin-bottom: 0.8rem; list-style: none; }
-        .footer-links a { color: var(--light); text-decoration: none; opacity: 0.8; transition: var(--transition); }
-        .footer-links a:hover { opacity: 1; color: var(--secondary); padding-left: 5px; }
-        .social-links { display: flex; gap: 1rem; }
-        .social-links a { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; background-color: rgba(255, 255, 255, 0.1); color: var(--light); border-radius: 50%; transition: var(--transition); }
-        .social-links a:hover { background-color: var(--secondary); transform: translateY(-3px); }
-        .footer-bottom { text-align: center; padding-top: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.1); opacity: 0.8; }
-        .newsletter-form { display: flex; }
-        .newsletter-form input { flex-grow: 1; padding: 10px 15px; border: none; border-radius: 5px 0 0 5px; font-size: 1rem; color: var(--dark); }
-        .newsletter-form button { padding: 10px 15px; border: none; background-color: var(--primary); color: var(--light); border-radius: 0 5px 5px 0; cursor: pointer; transition: var(--transition); }
-        .newsletter-form button:hover { background-color: var(--primary-dark); }
-
-        /* --- Responsive Styles (Adjust Review page styles for new mobile nav) --- */
-        @media (max-width: 768px) {
-             body { padding-top: var(--navbar-height-mobile); }
-             .navbar { padding: 1rem 5%; height: var(--navbar-height-mobile); }
-             .logo { font-size: 1.6rem; }
-             /* Mobile Nav Links container (copied from second block's responsive styles) */
-             .nav-links {
-                 position: fixed;
-                 /* Adjust top based on actual navbar height */
-                 top: var(--navbar-height-mobile); /* Use variable */
-                 left: -100%;
-                 width: 100%;
-                 height: calc(100vh - var(--navbar-height-mobile)); /* Adjust height accordingly */
-                 background-color: var(--primary-dark); /* Consistent background */
-                 flex-direction: column;
-                 align-items: center;
-                 justify-content: flex-start;
-                 padding-top: 3rem;
-                 gap: 2rem; /* Adjust gap for vertical layout */
-                 transition: var(--transition);
-                 z-index: 999; /* Ensure it's below navbar but above content */
-             }
-             .nav-links.active { left: 0; }
-             .mobile-menu-btn { display: block; z-index: 1001; /* Ensure button is above overlay */ }
-             /* Keep other Review page responsive styles */
-             .reviews-hero { height: 30vh; } .reviews-hero h1 { font-size: 2rem; }
-             .section { padding: 3rem 5%; }
-             .ai-tools-container, .review-form-container { padding: 1.5rem; }
-             .reviews-container { padding: 0 1rem; } .review-card { padding: 1.5rem; }
-             .preferences-container label { font-size: 0.85rem; padding: 0.4rem 0.8rem; }
-             .footer-content { grid-template-columns: 1fr; text-align: center;}
-             .footer-col h3::after { left: 50%; transform: translateX(-50%); }
-             .social-links { justify-content: center; }
-             .newsletter-form { max-width: 350px; margin: 0 auto; }
-             .review-actions { flex-wrap: wrap; justify-content: center; }
-             .action-btn { flex-basis: 45%; text-align: center; justify-content: center; }
+        .review-form-container {
+            background: var(--light);
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            animation: slideUp 0.6s ease;
         }
 
+        .ai-tools-container h3,
+        .review-form-container h3 {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.5rem;
+            color: var(--primary-dark);
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .ai-tools-container h3 i,
+        .review-form-container h3 i {
+            margin-right: 0.5rem;
+            color: var(--primary);
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            font-weight: 500;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.9rem 1rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 1rem;
+            color: var(--dark);
+            background: var(--gray);
+            transition: var(--transition);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(26, 60, 135, 0.1);
+            background: var(--light);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .ai-analyze-btn,
+        .submit-btn {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--light);
+            border: none;
+            border-radius: 8px;
+            padding: 0.9rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .ai-analyze-btn:hover,
+        .submit-btn:hover {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .ai-analyze-btn:disabled {
+            background: var(--dark-gray);
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+
+        /* Preferences */
+        .preferences-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 0.5rem;
+        }
+
+        .preferences-container input[type="checkbox"] {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .preferences-container label {
+            display: inline-flex;
+            align-items: center;
+            background: var(--gray);
+            border: 1px solid #e5e7eb;
+            border-radius: 20px;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.9rem;
+            color: var(--dark);
+        }
+
+        .preferences-container label::before {
+            content: '';
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            border: 1px solid var(--dark-gray);
+            border-radius: 3px;
+            margin-right: 0.5rem;
+            transition: var(--transition);
+            background: var(--light);
+        }
+
+        .preferences-container label:hover {
+            background: #e9ecef;
+            border-color: var(--primary);
+        }
+
+        .preferences-container input[type="checkbox"]:checked + label {
+            background: var(--primary);
+            color: var(--light);
+            border-color: var(--primary-dark);
+        }
+
+        .preferences-container input[type="checkbox"]:checked + label::before {
+            background: var(--light) url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%231a3c87'%3e%3cpath d='M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425z'/%3e%3c/svg%3e") center/contain no-repeat;
+            border-color: var(--light);
+        }
+
+        /* Reviews */
+        .reviews-container {
+            max-width: 800px;
+            margin: 3rem auto 0;
+        }
+
+        .reviews-container h3 {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.5rem;
+            color: var(--primary-dark);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .review-card {
+            background: var(--light);
+            border-radius: 12px;
+            padding: 1.5rem 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow);
+            border-left: 5px solid var(--primary);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .review-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .review-author {
+            font-weight: 600;
+            color: var(--primary-dark);
+            font-size: 1.1rem;
+        }
+
+        .review-location {
+            color: var(--dark-gray);
+            font-size: 0.9rem;
+            margin-top: 0.2rem;
+        }
+
+        .review-rating {
+            color: #ffd700;
+            font-size: 1.1rem;
+            white-space: nowrap;
+        }
+
+        .review-content {
+            line-height: 1.7;
+            margin-bottom: 1rem;
+            white-space: pre-wrap;
+        }
+
+        .review-preferences {
+            font-size: 0.9rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+            padding-top: 0.5rem;
+            border-top: 1px dashed #e5e7eb;
+        }
+
+        .review-preferences strong {
+            color: var(--primary-dark);
+        }
+
+        .review-date {
+            color: var(--dark-gray);
+            font-size: 0.8rem;
+            text-align: right;
+            margin-top: 1rem;
+        }
+
+        .no-reviews {
+            text-align: center;
+            color: var(--dark-gray);
+            padding: 2rem;
+            background: var(--light);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+        }
+
+        .review-actions {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 0.75rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .action-btn {
+            background: none;
+            border: 1px solid var(--error);
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            color: var(--error);
+        }
+
+        .action-btn i {
+            font-size: 0.9rem;
+        }
+
+        .delete-review-btn:hover {
+            background: var(--error-bg);
+            color: #b91c1c;
+        }
+
+        .delete-review-btn:disabled {
+            color: var(--dark-gray);
+            border-color: #d1d5db;
+            cursor: not-allowed;
+            background: transparent;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-dark);
+            color: var(--light);
+            padding: 5rem 5% 3rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 4rem;
+            max-width: 1200px;
+            margin: 0 auto 3rem;
+        }
+
+        .footer-col h3 {
+            font-size: 1.6rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.6rem;
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--secondary);
+        }
+
+        .footer-col p {
+            margin-bottom: 1.2rem;
+            opacity: 0.85;
+            font-size: 0.95rem;
+        }
+
+        .footer-links li {
+            margin-bottom: 1rem;
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: var(--light);
+            text-decoration: none;
+            opacity: 0.85;
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+            color: var(--secondary);
+            padding-left: 8px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.2rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.15);
+            color: var(--light);
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--secondary);
+            transform: translateY(-4px);
+        }
+
+        .newsletter-form {
+            display: flex;
+        }
+
+        .newsletter-form input {
+            flex-grow: 1;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 8px 0 0 8px;
+            font-size: 1rem;
+            background: var(--light);
+            color: var(--dark);
+        }
+
+        .newsletter-form button {
+            padding: 12px 20px;
+            border: none;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--light);
+            border-radius: 0 8px 8px 0;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .newsletter-form button:hover {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            transform: translateY(-2px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.8;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .section-title h2 {
+                font-size: 2rem;
+            }
+
+            .section-title p {
+                font-size: 1rem;
+            }
+
+            .featured-places {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding-top: var(--navbar-height-mobile);
+            }
+
+            .navbar {
+                padding: 1rem 5%;
+                height: var(--navbar-height-mobile);
+            }
+
+            .logo {
+                font-size: 1.8rem;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: var(--navbar-height-mobile);
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - var(--navbar-height-mobile));
+                background: var(--primary-dark);
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 4rem;
+                gap: 3rem;
+                transition: var(--transition);
+                z-index: 999;
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+                z-index: 1001;
+            }
+
+            .section {
+                padding: 3rem 5%;
+                margin: 1.5rem;
+            }
+
+            .ai-tools-container,
+            .review-form-container {
+                padding: 1.5rem;
+            }
+
+            .reviews-container {
+                padding: 0 1rem;
+            }
+
+            .review-card {
+                padding: 1.5rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-col h3::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+
+            .newsletter-form {
+                max-width: 400px;
+                margin: 0 auto;
+            }
+
+            .review-actions {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .action-btn {
+                flex-basis: 45%;
+                text-align: center;
+                justify-content: center;
+            }
+        }
     </style>
 </head>
 <body>
-    <!-- Header / Navbar (Dynamic - using new structure) -->
     <header class="navbar">
         <a href="index.html" class="logo">
             <i class="fas fa-route"></i> WayStream
@@ -247,36 +752,55 @@
         <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu" aria-expanded="false">
             <i class="fas fa-bars"></i>
         </button>
-        <!-- Use nav element for semantics, but structure from second block -->
         <nav class="nav-links" id="navLinks">
             <a href="index.html">Home</a>
-            <a href="Review.html">Reviews</a> <!-- Current page -->
+            <a href="Review.html">Reviews</a>
             <a href="Map.html" class="protected-link">Map</a>
             <a href="Contact.html" class="protected-link">Contact</a>
-
-            <!-- Login/Register link structure from second block -->
             <a href="Register.html" class="login-btn" id="loginLink">Login/Register</a>
-            <!-- Logout link structure from second block -->
             <a href="#" class="login-btn hidden" id="logoutLink">Logout</a>
         </nav>
     </header>
 
-    <!-- Optional Hero Section (Keep Review page hero) -->
-    <section class="reviews-hero">
-        <h1>Traveler Reviews</h1>
-        <p>Real experiences shared by the WayStream community.</p>
-    </section>
-
-    <!-- Main Content (Keep Review page content) -->
     <main>
-        <!-- Reviews Section -->
         <section class="section reviews-section" id="reviews">
-            <div class="section-title fade-in">
+            <div class="section-title">
                 <h2>Share & Discover Experiences</h2>
                 <p>Get an AI summary of a place, read authentic reviews, or add your own travel story.</p>
+                <div class="featured-places">
+                    <div class="place-card">
+                        <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34" alt="Eiffel Tower in Paris">
+                        <div class="place-card-content">
+                            <h4>Paris, France</h4>
+                            <p>Explore the City of Light, home to iconic landmarks like the Eiffel Tower and world-class cuisine.</p>
+                            <a href="#aiAnalyzerForm" class="explore-btn" onclick="document.getElementById('aiPlaceInput').value='Paris, France'; document.getElementById('aiPlaceInput').focus();">
+                                <i class="fas fa-search-location"></i> Explore
+                            </a>
+                        </div>
+                    </div>
+                    <div class="place-card">
+                        <img src="https://images.unsplash.com/photo-1533106497176-45ae19e68ba2" alt="Grand Canyon">
+                        <div class="place-card-content">
+                            <h4>Grand Canyon, USA</h4>
+                            <p>Marvel at the breathtaking vistas of this natural wonder, perfect for hiking and photography.</p>
+                            <a href="#aiAnalyzerForm" class="explore-btn" onclick="document.getElementById('aiPlaceInput').value='Grand Canyon National Park'; document.getElementById('aiPlaceInput').focus();">
+                                <i class="fas fa-search-location"></i> Explore
+                            </a>
+                        </div>
+                    </div>
+                    <div class="place-card">
+                        <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf" alt="Tokyo cityscape">
+                        <div class="place-card-content">
+                            <h4>Tokyo, Japan</h4>
+                            <p>Experience the vibrant blend of tradition and modernity in Japan's bustling capital.</p>
+                            <a href="#aiAnalyzerForm" class="explore-btn" onclick="document.getElementById('aiPlaceInput').value='Tokyo, Japan'; document.getElementById('aiPlaceInput').focus();">
+                                <i class="fas fa-search-location"></i> Explore
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <!-- AI Tools Section -->
             <div class="ai-tools-container">
                 <h3><i class="fas fa-robot"></i> AI Place Analyzer</h3>
                 <form id="aiAnalyzerForm">
@@ -290,67 +814,61 @@
                 </form>
             </div>
 
-            <!-- Review Form Container -->
             <div class="review-form-container">
-                 <h3><i class="fas fa-pencil-alt"></i> Write Your Review</h3>
-                 <form id="reviewForm" novalidate>
-                     <!-- This section manages name input based on login status -->
-                     <div class="form-group" id="manualNameGroup">
-                         <label for="reviewName">Your Name</label>
-                         <input type="text" id="reviewName" placeholder="Enter your name" required>
-                     </div>
-                     <div class="form-group" id="loggedInUsernameDisplay" style="display: none;">
-                         <p>Posting as: <strong id="usernameForReview"></strong></p>
-                     </div>
-                     <!-- Rest of the form fields -->
-                     <div class="form-group">
-                         <label for="reviewStartLocation">Start Location</label>
-                         <input type="text" id="reviewStartLocation" placeholder="e.g., San Francisco, CA" required>
-                     </div>
-                     <div class="form-group">
-                         <label for="reviewDestination">Destination</label>
-                         <input type="text" id="reviewDestination" placeholder="e.g., Yosemite National Park" required>
-                     </div>
-                     <div class="form-group">
-                         <label for="reviewContent">Your Experience</label>
-                         <textarea id="reviewContent" placeholder="Share details about your trip, route, tips, etc." required minlength="10"></textarea>
-                     </div>
-                     <div class="form-group">
-                         <label>Route Preferences (Optional)</label>
-                         <div class="preferences-container">
-                             <input type="checkbox" id="avoidTolls" name="preferences" value="Avoided Tolls">
-                             <label for="avoidTolls">Avoid Tolls</label>
-                             <input type="checkbox" id="avoidTraffic" name="preferences" value="Avoided Traffic">
-                             <label for="avoidTraffic">Avoid Traffic</label>
-                             <input type="checkbox" id="scenicRoute" name="preferences" value="Took Scenic Route">
-                             <label for="scenicRoute">Scenic Route</label>
-                         </div>
-                     </div>
-                     <div class="form-group">
-                         <label for="reviewRating">Overall Rating</label>
-                         <select id="reviewRating" required>
-                             <option value="" disabled selected>-- Select Rating --</option>
-                             <option value="5">★★★★★ (Excellent)</option>
-                             <option value="4">★★★★☆ (Great)</option>
-                             <option value="3">★★★☆☆ (Good)</option>
-                             <option value="2">★★☆☆☆ (Fair)</option>
-                             <option value="1">★☆☆☆☆ (Poor)</option>
-                         </select>
-                     </div>
-                     <button type="submit" class="submit-btn">Submit Review</button>
-                 </form>
+                <h3><i class="fas fa-pencil-alt"></i> Write Your Review</h3>
+                <form id="reviewForm" novalidate>
+                    <div class="form-group" id="manualNameGroup">
+                        <label for="reviewName">Your Name</label>
+                        <input type="text" id="reviewName" placeholder="Enter your name" required>
+                    </div>
+                    <div class="form-group" id="loggedInUsernameDisplay" style="display: none;">
+                        <p>Posting as: <strong id="usernameForReview"></strong></p>
+                    </div>
+                    <div class="form-group">
+                        <label for="reviewStartLocation">Start Location</label>
+                        <input type="text" id="reviewStartLocation" placeholder="e.g., San Francisco, CA" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="reviewDestination">Destination</label>
+                        <input type="text" id="reviewDestination" placeholder="e.g., Yosemite National Park" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="reviewContent">Your Experience</label>
+                        <textarea id="reviewContent" placeholder="Share details about your trip, route, tips, etc." required minlength="10"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Route Preferences (Optional)</label>
+                        <div class="preferences-container">
+                            <input type="checkbox" id="avoidTolls" name="preferences" value="Avoided Tolls">
+                            <label for="avoidTolls">Avoid Tolls</label>
+                            <input type="checkbox" id="avoidTraffic" name="preferences" value="Avoided Traffic">
+                            <label for="avoidTraffic">Avoid Traffic</label>
+                            <input type="checkbox" id="scenicRoute" name="preferences" value="Took Scenic Route">
+                            <label for="scenicRoute">Scenic Route</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="reviewRating">Overall Rating</label>
+                        <select id="reviewRating" required>
+                            <option value="" disabled selected>-- Select Rating --</option>
+                            <option value="5">★★★★★ (Excellent)</option>
+                            <option value="4">★★★★☆ (Great)</option>
+                            <option value="3">★★★☆☆ (Good)</option>
+                            <option value="2">★★☆☆☆ (Fair)</option>
+                            <option value="1">★☆☆☆☆ (Poor)</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="submit-btn">Submit Review</button>
+                </form>
             </div>
 
-            <!-- Container for displaying reviews -->
             <div class="reviews-container" id="reviewsContainer">
                 <h3>Traveler Reviews</h3>
                 <p class="no-reviews">Loading reviews...</p>
-                <!-- Reviews loaded here -->
             </div>
         </section>
     </main>
 
-    <!-- Footer (Keep original Review page footer, update links) -->
     <footer>
         <div class="footer-content">
             <div class="footer-col">
@@ -366,20 +884,19 @@
             <div class="footer-col">
                 <h3>Quick Links</h3>
                 <ul class="footer-links">
-                     <li><a href="index.html">Home</a></li>
-                     <li><a href="Review.html">Reviews</a></li>
-                     <li><a href="Map.html" class="protected-link">Map</a></li>
-                     <li><a href="Contact.html" class="protected-link">Contact</a></li>
-                     <!-- Update footer links to match new header structure -->
-                     <li><a href="Register.html" id="footerLoginLink">Login/Register</a></li>
-                     <li><a href="#" class="hidden" id="footerLogoutLink">Logout</a></li>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="Review.html">Reviews</a></li>
+                    <li><a href="Map.html" class="protected-link">Map</a></li>
+                    <li><a href="Contact.html" class="protected-link">Contact</a></li>
+                    <li><a href="Register.html" id="footerLoginLink">Login/Register</a></li>
+                    <li><a href="#" class="hidden" id="footerLogoutLink">Logout</a></li>
                 </ul>
             </div>
             <div class="footer-col">
                 <h3>Newsletter</h3>
                 <p>Get travel tips and review highlights.</p>
                 <form class="newsletter-form" id="newsletterForm">
-                     <label for="newsletter-email" class="hidden">Email Address</label>
+                    <label for="newsletter-email" class="hidden">Email Address</label>
                     <input type="email" id="newsletter-email" placeholder="Your Email" required>
                     <button type="submit">Subscribe</button>
                 </form>
@@ -389,26 +906,20 @@
             <p>© <span id="currentYear"></span> WayStream Travel. All Rights Reserved.</p>
         </div>
     </footer>
-    <script src="Rscript.js"></script>
-    <!-- Use Updated JavaScript -->
+
     <script>
         'use strict';
 
-        // --- Constants ---
         const STORAGE_KEY_REVIEWS = 'waystream-reviews';
-        const STORAGE_KEY_LOGGED_IN = 'waystreamLoggedIn'; // Match key from second script
-        const STORAGE_KEY_USERNAME = 'waystreamUsername'; // Match key from second script
+        const STORAGE_KEY_LOGGED_IN = 'waystreamLoggedIn';
+        const STORAGE_KEY_USERNAME = 'waystreamUsername';
 
-        // --- DOM Elements ---
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const navLinksContainer = document.getElementById('navLinks');
-        // Updated Nav Links to match new structure
-        const loginLink = document.getElementById('loginLink'); // Combined Login/Register
+        const loginLink = document.getElementById('loginLink');
         const logoutLink = document.getElementById('logoutLink');
-        // Updated Footer Links
         const footerLoginLink = document.getElementById('footerLoginLink');
         const footerLogoutLink = document.getElementById('footerLogoutLink');
-        // Review Page Specific Elements
         const reviewForm = document.getElementById('reviewForm');
         const reviewsContainer = document.getElementById('reviewsContainer');
         const loggedInUsernameDisplay = document.getElementById('loggedInUsernameDisplay');
@@ -417,48 +928,37 @@
         const manualNameGroup = document.getElementById('manualNameGroup');
         const newsletterForm = document.getElementById('newsletterForm');
         const currentYearSpan = document.getElementById('currentYear');
-        // AI Elements
         const aiAnalyzeBtn = document.getElementById('aiAnalyzeBtn');
         const aiPlaceInput = document.getElementById('aiPlaceInput');
-        // Protected Links
         const protectedLinks = document.querySelectorAll('.protected-link');
 
-        // --- Core Auth & UI Functions (Adapted from second script, merged with review form logic) ---
         function isLoggedIn() {
             return localStorage.getItem(STORAGE_KEY_LOGGED_IN) === 'true';
         }
 
-        // Updated UI Function to handle new link structure AND review form name field
         function updateNavUI() {
             const loggedIn = isLoggedIn();
             const storedUsername = localStorage.getItem(STORAGE_KEY_USERNAME);
 
-            // Header Nav (Using combined Login/Register link)
             loginLink?.classList.toggle('hidden', loggedIn);
             logoutLink?.classList.toggle('hidden', !loggedIn);
+            footerLoginLink?.parentElement.classList.toggle('hidden', loggedIn);
+            footerLogoutLink?.parentElement.classList.toggle('hidden', !loggedIn);
 
-            // Footer Nav Sync (Optional, adjust if footer structure differs)
-            // Note: Assuming footerLoginLink now points to the combined Login/Register link
-            footerLoginLink?.parentElement.classList.toggle('hidden', loggedIn); // Hide the <li> containing the link
-            footerLogoutLink?.parentElement.classList.toggle('hidden', !loggedIn); // Hide the <li> containing the link
-
-            // Review Form Name Field Logic (Preserved from original Review script)
             if (loggedIn && storedUsername && manualNameGroup && loggedInUsernameDisplay) {
                 manualNameGroup.style.display = 'none';
                 usernameForReview.textContent = storedUsername;
                 loggedInUsernameDisplay.style.display = 'block';
-                if (reviewNameInput) reviewNameInput.required = false; // Make name not required if logged in
+                if (reviewNameInput) reviewNameInput.required = false;
             } else if (manualNameGroup && loggedInUsernameDisplay) {
                 manualNameGroup.style.display = 'block';
                 loggedInUsernameDisplay.style.display = 'none';
-                 if (reviewNameInput) reviewNameInput.required = true; // Make name required if not logged in
+                if (reviewNameInput) reviewNameInput.required = true;
             }
         }
 
-        // Mobile Menu Toggle (From second script)
         function toggleMobileMenu() {
             navLinksContainer.classList.toggle('active');
-            // Update button icon based on state
             mobileMenuBtn.innerHTML = navLinksContainer.classList.contains('active') ?
                 '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
             mobileMenuBtn.setAttribute('aria-expanded', navLinksContainer.classList.contains('active'));
@@ -470,19 +970,15 @@
             }
         }
 
-        // Handle Protected Actions (From second script)
         function handleProtectedAction(event, alertMessage = 'Please log in to access this feature.') {
             if (!isLoggedIn()) {
                 if (event) event.preventDefault();
                 alert(alertMessage);
-                // Optionally, redirect to login: window.location.href = 'Register.html'; // Redirect to combined page
-                return false; // Action blocked
+                return false;
             }
-            return true; // Action allowed
+            return true;
         }
 
-
-        // --- Review Logic Functions (Keep original Review page functions) ---
         function loadReviewsFromStorage() {
             try {
                 const r = localStorage.getItem(STORAGE_KEY_REVIEWS);
@@ -492,6 +988,7 @@
                 return [];
             }
         }
+
         function saveReviewsToStorage(reviews) {
             try {
                 localStorage.setItem(STORAGE_KEY_REVIEWS, JSON.stringify(reviews));
@@ -500,12 +997,12 @@
                 alert("Could not save review data.");
             }
         }
+
         function renderSingleReview(review) {
             const reviewCard = document.createElement('div');
             reviewCard.className = 'review-card';
             reviewCard.setAttribute('data-review-id', review.id);
 
-            // Basic sanitize function
             const sanitize = (str) => {
                 const temp = document.createElement('div');
                 temp.textContent = str;
@@ -515,7 +1012,7 @@
             const safeName = sanitize(review.name);
             const safeStart = sanitize(review.startLocation);
             const safeDest = sanitize(review.destination);
-            const safeContent = sanitize(review.content).replace(/\n/g, '<br>'); // Preserve line breaks
+            const safeContent = sanitize(review.content).replace(/\n/g, '<br>');
             const safePrefs = review.preferences.length > 0 ? review.preferences.map(p => sanitize(p)).join(', ') : 'None specified';
             const stars = '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating);
 
@@ -527,7 +1024,7 @@
                 }
             } catch(e) { console.error("Error parsing date:", e); }
 
-            const loggedIn = isLoggedIn(); // Check login status for enabling/disabling buttons
+            const loggedIn = isLoggedIn();
 
             reviewCard.innerHTML = `
                 <div class="review-header">
@@ -548,25 +1045,25 @@
             `;
             return reviewCard;
         }
+
         function renderReviews() {
             const reviews = loadReviewsFromStorage();
-            reviewsContainer.innerHTML = ''; // Clear previous content
+            reviewsContainer.innerHTML = '';
 
             const heading = document.createElement('h3');
             heading.textContent = 'Traveler Reviews';
-            reviewsContainer.appendChild(heading); // Always add heading
+            reviewsContainer.appendChild(heading);
 
             if (reviews.length === 0) {
                 reviewsContainer.insertAdjacentHTML('beforeend', '<p class="no-reviews">No reviews yet. Be the first!</p>');
                 return;
             }
 
-            reviews.sort((a, b) => new Date(b.date) - new Date(a.date)); // Sort newest first
+            reviews.sort((a, b) => new Date(b.date) - new Date(a.date));
 
             reviews.forEach(review => {
                 const card = renderSingleReview(review);
                 reviewsContainer.appendChild(card);
-                // Stagger animation slightly
                 requestAnimationFrame(() => {
                     requestAnimationFrame(() => {
                         card.classList.add('visible');
@@ -574,12 +1071,12 @@
                 });
             });
         }
+
         function addReview(reviewData) {
             const storedReviews = loadReviewsFromStorage();
-            storedReviews.unshift(reviewData); // Add to the beginning
+            storedReviews.unshift(reviewData);
             saveReviewsToStorage(storedReviews);
 
-            // Update UI
             const noReviewsMsg = reviewsContainer.querySelector('.no-reviews');
             if (noReviewsMsg) noReviewsMsg.remove();
 
@@ -587,23 +1084,22 @@
             const newCard = renderSingleReview(reviewData);
 
             if (heading) {
-                heading.after(newCard); // Insert after the 'Traveler Reviews' heading
+                heading.after(newCard);
             } else {
-                // Fallback if heading somehow isn't found
                 reviewsContainer.insertBefore(newCard, reviewsContainer.firstChild);
             }
 
-            // Trigger animation
             requestAnimationFrame(() => {
                 requestAnimationFrame(() => {
                     newCard.classList.add('visible');
                 });
             });
         }
+
         function deleteReview(reviewId) {
             let reviews = loadReviewsFromStorage();
             const initialLength = reviews.length;
-            reviews = reviews.filter(rv => rv.id != reviewId); // Use != for type coercion if IDs might be strings/numbers
+            reviews = reviews.filter(rv => rv.id != reviewId);
 
             if (reviews.length < initialLength) {
                 saveReviewsToStorage(reviews);
@@ -613,70 +1109,61 @@
                     cardToRemove.style.transform = 'scale(0.95)';
                     setTimeout(() => {
                         cardToRemove.remove();
-                        // Check if container is now empty (only H3 left)
                         if (reviews.length === 0 && !reviewsContainer.querySelector('.no-reviews')) {
-                             // Ensure heading exists before adding 'no reviews' message
                             if (!reviewsContainer.querySelector('h3')) {
                                 const h = document.createElement('h3');
                                 h.textContent = 'Traveler Reviews';
                                 reviewsContainer.appendChild(h);
                             }
-                           reviewsContainer.insertAdjacentHTML('beforeend', '<p class="no-reviews">No reviews left!</p>');
+                            reviewsContainer.insertAdjacentHTML('beforeend', '<p class="no-reviews">No reviews left!</p>');
                         }
-                    }, 300); // Match transition duration
+                    }, 300);
                 }
             } else {
                 console.warn(`Review ID ${reviewId} not found for deletion.`);
             }
         }
 
-        // --- Event Handlers ---
-
-        // Logout Handler (Adapted from second script)
         function handleLogout(e) {
-             e.preventDefault();
-             localStorage.removeItem(STORAGE_KEY_LOGGED_IN);
-             localStorage.removeItem(STORAGE_KEY_USERNAME); // Clear username too
-             alert('You have been logged out.');
-             window.location.reload(); // Reload to reflect changes everywhere
+            e.preventDefault();
+            localStorage.removeItem(STORAGE_KEY_LOGGED_IN);
+            localStorage.removeItem(STORAGE_KEY_USERNAME);
+            alert('You have been logged out.');
+            window.location.reload();
         }
 
-        // Review Submit Handler (Keep original Review page handler, integrate protection)
         function handleReviewSubmit(e) {
             e.preventDefault();
-            // Use handleProtectedAction to check login status first
             if (!handleProtectedAction(e, 'Please log in to submit a review.')) {
-                return; // Stop submission if not logged in
+                return;
             }
 
             const loggedInUser = localStorage.getItem(STORAGE_KEY_USERNAME);
-            // Get name either from logged-in user or the input field
             const name = loggedInUser || reviewNameInput.value.trim();
             const startLocation = document.getElementById('reviewStartLocation').value.trim();
             const destination = document.getElementById('reviewDestination').value.trim();
             const content = document.getElementById('reviewContent').value.trim();
             const rating = document.getElementById('reviewRating').value;
 
-            // Validation
-            if (!name && !loggedInUser) { // Need name if not logged in
-                 alert('Please enter your name.');
-                 reviewNameInput.focus();
-                 return;
-             }
+            if (!name && !loggedInUser) {
+                alert('Please enter your name.');
+                reviewNameInput.focus();
+                return;
+            }
             if (!startLocation || !destination || !content || !rating) {
                 alert('Please fill in Start Location, Destination, Experience, and Rating.');
                 return;
             }
             if (content.length < 10) {
-                 alert('Please provide a more detailed experience (at least 10 characters).');
-                 document.getElementById('reviewContent').focus();
-                 return;
-             }
+                alert('Please provide a more detailed experience (at least 10 characters).');
+                document.getElementById('reviewContent').focus();
+                return;
+            }
 
             const preferences = Array.from(document.querySelectorAll('input[name="preferences"]:checked')).map(pf => pf.value);
 
             const newReview = {
-                id: Date.now(), // Simple unique ID
+                id: Date.now(),
                 name: name,
                 startLocation: startLocation,
                 destination: destination,
@@ -687,35 +1174,29 @@
             };
 
             addReview(newReview);
-            this.reset(); // Reset the form fields
-            updateNavUI(); // Ensure UI reflects login state (though it shouldn't change here)
+            this.reset();
+            updateNavUI();
         }
 
-        // Handle clicks within the reviews container (e.g., delete)
         function handleReviewActionClick(e) {
-             const deleteButton = e.target.closest('.delete-review-btn');
-             if (deleteButton) {
-                  // Check login status *before* confirming deletion
-                  if (!handleProtectedAction(null, 'Please log in to delete reviews.')) {
-                     return; // Stop if not logged in
-                 }
-                  if (confirm('Are you sure you want to delete this review?')) {
-                      const reviewId = deleteButton.dataset.id;
-                      deleteReview(reviewId);
-                  }
-             }
-             // Add other action handlers here if needed (e.g., edit, report)
-         }
+            const deleteButton = e.target.closest('.delete-review-btn');
+            if (deleteButton) {
+                if (!handleProtectedAction(null, 'Please log in to delete reviews.')) {
+                    return;
+                }
+                if (confirm('Are you sure you want to delete this review?')) {
+                    const reviewId = deleteButton.dataset.id;
+                    deleteReview(reviewId);
+                }
+            }
+        }
 
-        // Newsletter Submit Handler (Keep original)
         function handleNewsletterSubmit(e) {
-             e.preventDefault();
-             // Add actual newsletter signup logic here if desired
-             alert('Thank you for subscribing! (Simulated)');
-             this.reset();
-         }
+            e.preventDefault();
+            alert('Thank you for subscribing! (Simulated)');
+            this.reset();
+        }
 
-        // AI Analyze Button Handler (Keep original placeholder)
         async function handleAiAnalyzeClick() {
             const place = aiPlaceInput.value.trim();
             if (!place) {
@@ -725,49 +1206,29 @@
             }
         }
 
-
-        // --- Initialization ---
         function initialize() {
-            // Run on page load
-            updateNavUI();      // Set initial Nav bar state based on login
-            renderReviews();    // Load and display existing reviews
-            setDynamicYear();   // Set footer ygit push
-            ear
+            updateNavUI();
+            renderReviews();
+            setDynamicYear();
 
-            // Setup Event Listeners
             if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', toggleMobileMenu);
-
-            // Logout listeners (Header and Footer)
             [logoutLink, footerLogoutLink].forEach(link => {
-                 if (link) {
-                     link.addEventListener('click', handleLogout);
-                 }
-             });
-
-            // Review Form submission
+                if (link) {
+                    link.addEventListener('click', handleLogout);
+                }
+            });
             if (reviewForm) reviewForm.addEventListener('submit', handleReviewSubmit);
-
-            // Review container delegation for delete clicks
             if (reviewsContainer) reviewsContainer.addEventListener('click', handleReviewActionClick);
-
-            // Protected links check
             protectedLinks.forEach(link => {
                 link.addEventListener('click', (e) => {
-                    handleProtectedAction(e); // Check login on click
+                    handleProtectedAction(e);
                 });
             });
-
-            // Newsletter submission
             if (newsletterForm) newsletterForm.addEventListener('submit', handleNewsletterSubmit);
-
-            // AI Analyze Button click
             if (aiAnalyzeBtn) aiAnalyzeBtn.addEventListener('click', handleAiAnalyzeClick);
         }
 
-        // Run Initialization when the DOM is fully loaded
         document.addEventListener('DOMContentLoaded', initialize);
-
     </script>
-
 </body>
 </html>
