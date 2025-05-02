@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WayStream - Login/Register</title> <!-- Updated Title -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
+<style>
         * {
             margin: 0;
             padding: 0;
@@ -14,46 +14,44 @@
         }
 
         body {
-            background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+            background: linear-gradient(135deg, #0f172a, #1e293b);
             min-height: 100vh;
-            overflow-x: hidden; /* Prevent horizontal scroll */
-            display: flex; /* Use flex to center content */
-            flex-direction: column; /* Stack header and container */
-            align-items: center; /* Center items horizontally */
-            padding-top: 2rem; /* Add some padding at the top */
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 2rem;
         }
 
         .header {
             text-align: center;
-            padding: 0 1rem 2rem 1rem; /* Adjusted padding */
+            padding: 0 1rem 2rem 1rem;
             color: #fff;
             animation: fadeDown 1s ease;
-            width: 100%; /* Ensure header takes full width */
+            width: 100%;
         }
 
         .header h1 {
             font-size: 3rem;
             letter-spacing: 3px;
-            background: linear-gradient(45deg, #00ff87, #60efff);
+            background: linear-gradient(45deg, #38bdf8, #60a5fa);
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        /* Removed container flex centering as body handles it */
-        /* .container { ... } */
-
         .form-container {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(30, 41, 59, 0.7);
             backdrop-filter: blur(10px);
-            padding: 2.5rem; /* Slightly more padding */
+            padding: 2.5rem;
             border-radius: 20px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            width: 90%; /* Responsive width */
-            max-width: 400px; /* Max width */
+            box-shadow: 0 8px 32px rgba(2, 132, 199, 0.15);
+            width: 90%;
+            max-width: 400px;
             position: relative;
             overflow: hidden;
-            margin-bottom: 2rem; /* Add margin at the bottom */
+            margin-bottom: 2rem;
+            border: 1px solid rgba(56, 189, 248, 0.1);
         }
 
         .form-group {
@@ -64,59 +62,58 @@
         .form-group input {
             width: 100%;
             padding: 1rem;
-            background: rgba(255, 255, 255, 0.1);
-            border: none;
-            border-radius: 5px;
-            color: #fff;
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(56, 189, 248, 0.1);
+            border-radius: 8px;
+            color: #f8fafc;
             font-size: 1rem;
             transition: all 0.3s ease;
-            padding-right: 3rem; /* Make space for icon */
+            padding-right: 3rem;
         }
 
         .form-group input:focus {
             outline: none;
-            background: rgba(255, 255, 255, 0.2);
-            box-shadow: 0 0 10px rgba(96, 239, 255, 0.5);
+            background: rgba(15, 23, 42, 0.8);
+            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.3);
+            border-color: rgba(56, 189, 248, 0.4);
         }
 
         .form-group label {
             position: absolute;
             left: 1rem;
-            top: 1rem; /* Align with input padding */
-            color: rgba(255, 255, 255, 0.6);
+            top: 1rem;
+            color: rgba(203, 213, 225, 0.7);
             pointer-events: none;
             transition: all 0.3s ease;
         }
 
-        /* Float label when input has focus OR has content */
         .form-group input:focus ~ label,
-        .form-group input:not(:placeholder-shown) ~ label { /* Use :not(:placeholder-shown) for better compatibility */
-            top: -12px; /* Adjust float position */
-            left: 5px; /* Adjust float position */
-            font-size: 0.75rem; /* Smaller font size */
-            color: #60efff;
-            background-color: #252525; /* Add small background to cover input line */
+        .form-group input:not(:placeholder-shown) ~ label {
+            top: -12px;
+            left: 5px;
+            font-size: 0.75rem;
+            color: #38bdf8;
+            background-color: #0f172a;
             padding: 0 5px;
             border-radius: 3px;
         }
 
-         /* Keep icon visible */
-         .icon {
+        .icon {
             position: absolute;
             right: 1rem;
             top: 50%;
             transform: translateY(-50%);
-            color: rgba(255, 255, 255, 0.6);
-            pointer-events: none; /* Prevent icon interfering with input click */
+            color: rgba(203, 213, 225, 0.7);
+            pointer-events: none;
         }
 
         .btn {
             width: 100%;
             padding: 1rem;
-            background: linear-gradient(45deg, #00ff87, #60efff);
+            background: linear-gradient(45deg, #3b82f6, #60a5fa);
             border: none;
-            border-radius: 5px;
-            color: #1a1a1a;
+            border-radius: 8px;
+            color: #fff;
             font-size: 1rem;
             font-weight: bold;
             cursor: pointer;
@@ -125,30 +122,32 @@
 
         .btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(96, 239, 255, 0.4);
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.4);
+            background: linear-gradient(45deg, #2563eb, #3b82f6);
         }
 
         .toggle-form {
             text-align: center;
-            margin-top: 1.5rem; /* Increased margin */
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 0.9rem; /* Slightly smaller */
+            margin-top: 1.5rem;
+            color: rgba(203, 213, 225, 0.7);
+            font-size: 0.9rem;
         }
 
         .toggle-form a {
-            color: #60efff;
+            color: #38bdf8;
             cursor: pointer;
             text-decoration: none;
-            font-weight: 500; /* Make link bolder */
+            font-weight: 500;
         }
         .toggle-form a:hover {
              text-decoration: underline;
+             color: #60a5fa;
         }
 
         .error-message {
-            color: #ff8787; /* Brighter red */
-            background-color: rgba(255, 107, 107, 0.1); /* Subtle background */
-            border: 1px solid rgba(255, 107, 107, 0.3);
+            color: #fca5a5;
+            background-color: rgba(220, 38, 38, 0.1);
+            border: 1px solid rgba(220, 38, 38, 0.3);
             padding: 0.75rem;
             border-radius: 5px;
             text-align: center;
@@ -171,7 +170,7 @@
 
         .panel {
             display: none;
-            animation: slideIn 0.6s ease forwards; /* Use forwards to keep state */
+            animation: slideIn 0.6s ease forwards;
         }
 
         .panel.active {
@@ -181,7 +180,7 @@
         @keyframes slideIn {
             from {
                 opacity: 0;
-                transform: translateX(30px); /* Smaller slide */
+                transform: translateX(30px);
             }
             to {
                 opacity: 1;
@@ -189,18 +188,17 @@
             }
         }
 
-
         @media (max-width: 480px) {
             .header h1 {
-                 font-size: 2.5rem; /* Adjust header size */
+                 font-size: 2.5rem;
             }
             .form-container {
                 width: 90%;
-                padding: 2rem; /* Adjust padding */
+                padding: 2rem;
             }
             .form-group input:focus ~ label,
             .form-group input:not(:placeholder-shown) ~ label {
-                 top: -10px; /* Adjust float for smaller screens if needed */
+                 top: -10px;
             }
         }
     </style>
