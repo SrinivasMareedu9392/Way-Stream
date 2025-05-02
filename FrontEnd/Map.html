@@ -225,7 +225,8 @@
             <a href="Review.html" class="protected-link">Reviews</a>
             <a href="Map.html">Map</a>
             <a href="Contact.html" class="protected-link">Contact</a>
-            <a href="Register.html" class="login-btn" id="registerLink">Login/Register</a>
+            <a href="Login.html" class="login-btn" id="loginLink">Login</a>
+            <a href="Register.html" class="login-btn" id="registerLink">Register</a>
             <a href="#" class="login-btn hidden" id="logoutLink">Logout</a>
         </nav>
     </header>
@@ -394,7 +395,7 @@
 
         // --- Event Listeners ---
         if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', toggleMobileMenu);
-         [logoutLink, footerLogoutLink].forEach(link => { if (link) { link.addEventListener('click', (e) => { e.preventDefault(); localStorage.removeItem('waystreamLoggedIn'); localStorage.removeItem('waystreamUsername'); alert('You have been logged out.'); window.location.reload(); }); } });
+         [logoutLink, footerLogoutLink].forEach(link => { if (link) { link.addEventListener('click', (e) => { e.preventDefault(); localStorage.removeItem('waystreamLoggedIn'); localStorage.removeItem('waystreamUsername'); alert('You have been logged out.'); window.location.href = 'index.html'; }); } });
          document.querySelectorAll('.protected-link').forEach(link => { link.addEventListener('click', (e) => { handleProtectedAction(e); }); });
          const newsletterForm = document.getElementById('newsletterForm'); if (newsletterForm) { newsletterForm.addEventListener('submit', (e) => { e.preventDefault(); alert('Thank you for subscribing! (Simulated)'); newsletterForm.reset(); }); }
          const currentYearSpan = document.getElementById('currentYear'); if (currentYearSpan) { currentYearSpan.textContent = new Date().getFullYear(); }
