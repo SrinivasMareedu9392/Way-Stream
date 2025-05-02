@@ -789,6 +789,10 @@
     <script src="Mscript.js"></script>
     <!-- Main Script -->
     <script>
+        window.onload = function() {
+            window.scrollTo(0, 0); // Scroll to top-left corner
+        };
+
         document.addEventListener('DOMContentLoaded', function() {
             // Set current year in footer
             document.getElementById('currentYear').textContent = new Date().getFullYear();
