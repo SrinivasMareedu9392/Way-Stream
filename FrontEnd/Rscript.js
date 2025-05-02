@@ -178,7 +178,13 @@ document.addEventListener("DOMContentLoaded", () => {
     if (logoutLink) {
         logoutLink.addEventListener("click", (e) => {
             e.preventDefault(); // Prevent default link behavior
-            window.location.href = "index.html"; // Redirect to index.html
+
+            // Perform logout actions (e.g., clearing session storage or cookies)
+            sessionStorage.clear(); // Clear session storage
+            localStorage.clear();  // Clear local storage if needed
+
+            // Redirect to index.html
+            window.location.href = "index.html";
         });
     }
 });
