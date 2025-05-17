@@ -948,12 +948,6 @@ footer {
                     </button>
                 </form>
             </div>
-
-            <div class="ai-results-dashboard" id="aiResultsDashboard">
-                <h3>Analysis Results</h3>
-                <div id="aiResultsContent"></div>
-            </div>
-
             <div class="review-form-container">
                 <h3><i class="fas fa-pencil-alt"></i> Write Your Review</h3>
                 <form id="reviewForm" novalidate>
@@ -1402,8 +1396,6 @@ footer {
 
                     if (mockData[place]) {
                         resolve(mockData[place]);
-                    } else {
-                        reject(new Error('No data available for this place. Please try another location.'));
                     }
                 }, 1000); // Simulate network delay
             });
